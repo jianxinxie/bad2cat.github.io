@@ -32,8 +32,8 @@ jobs:
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
-        env:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          PUBLISH_REPOSITORY: bad2cat/bad2cat.github.io # 公共仓库，格式：GitHub 用户名/仓库名
-          BRANCH: main # 分支，填 gh-pages 就行
-          PUBLISH_DIR: ./public # 部署 public 目录下的文件
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          external_repository: bad2cat/bad2cat.github.io # 公共仓库，格式：GitHub 用户名/仓库名
+          publish_branch: main # 分支，填 gh-pages 就行
+          publish_dir: ./public # 部署 public 目录下的文件
