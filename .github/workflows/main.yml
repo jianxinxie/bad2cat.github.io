@@ -1,18 +1,37 @@
-name: deploying Hexo project to GitHub pages
+name: Github Pages
 on:
   push:
     branches:
       - main # master 分支有 push 行为时就触发这个 action
+  pull_request:
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@main
+      - uses: actions/checkout@v2
+      
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+          
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
-      - name: Build and Deploy
-        uses: theme-keep/hexo-deploy-github-pages-action@main # 使用专门部署 Hexo 到 GitHub pages 的 action
+      - run: npm ci
+      - run: npm run build
+      
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
         env:
           PERSONAL_TOKEN: ${{ secrets.HEXO_DEPLOY }} # secret 名
           PUBLISH_REPOSITORY: bad2cat/bad2cat.github.io # 公共仓库，格式：GitHub 用户名/仓库名
