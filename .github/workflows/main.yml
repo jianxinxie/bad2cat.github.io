@@ -31,7 +31,7 @@ jobs:
       
 
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+        uses: theme-keep/hexo-deploy-github-pages-action@master 
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           external_repository: bad2cat/bad2cat.github.io # 公共仓库，格式：GitHub 用户名/仓库名
