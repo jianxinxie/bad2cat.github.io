@@ -32,8 +32,11 @@ jobs:
 
       - name: Deploy
         uses: theme-keep/hexo-deploy-github-pages-action@master 
-        with:
-          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          external_repository: bad2cat/bad2cat.github.io # 公共仓库，格式：GitHub 用户名/仓库名
-          publish_branch: main # 分支，填 gh-pages 就行
-          publish_dir: ./public # 部署 public 目录下的文件
+        env:
+          PERSONAL_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+
+           # The repository the action should deploy to.
+          PUBLISH_REPOSITORY: bad2cat/bad2cat.github.io
+
+          # The branch the action should deploy to.
+          BRANCH: main
