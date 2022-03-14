@@ -3,17 +3,19 @@ menu:
   Home: /
   Archives: /archives
 rss: /atom.xml
+banner: images/new_banner.png
 
 # Content
 excerpt_link: Read More
 fancybox: true
+recent_posts_limits: 5
 
 # Sidebar
 sidebar: right
 widgets:
 - category
 - tag
-- tagcloud
+# - tagcloud
 - archive
 - recent_posts
 
