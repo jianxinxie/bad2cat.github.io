@@ -5,8 +5,8 @@ menu:
   Categories: categories  # 分类
   Tags: tags  # 标签
   Repository: repository  # github repositories
-  Books: books  # 豆瓣书单
-  Links: links  # 友链
+  #Books: books  # 豆瓣书单
+  #Links: links  # 友链
   About: about  # 关于
 
 # Enable/Disable menu icons
@@ -32,13 +32,13 @@ site:
     height: 40
     url: ../images/logo.png
   title: Hexo # 页面title
-  favicon: /favicon.png
+  favicon: /party-big.png
   board: <p>欢迎交流与分享经验!</p> # 站点公告
   copyright: false # 底部版权信息
 
 # config
 config:
-  skin: # 主题颜色 theme-black theme-blue theme-green theme-purple
+  skin: theme-black # 主题颜色 theme-black theme-blue theme-green theme-purple
   layout: main-center # 布局方式 main-left main-center main-right
   toc: true # 是否开启文章章节目录导航
   menu_highlight: false # 是否开启当前菜单高亮显示
@@ -64,7 +64,7 @@ widgets:
   - board  
   - category
   - tag
-  - tagcloud
+# - tagcloud
   - archive
   - recent_posts
 
@@ -88,7 +88,7 @@ search:
 
 # Donate
 donate:
-  enable: true
+  enable: false
   # 微信打赏
   wechatpay:
     qrcode: images/donate/wechatpayimg.png
@@ -101,7 +101,7 @@ donate:
 # Share
 # weibo,qq,qzone,wechat,tencent,douban,diandian,facebook,twitter,google,linkedin
 share:
-  enable: true  # 是否启用分享
+  enable: false  # 是否启用分享
   sites: weibo,qq,wechat,facebook,twitter  # PC端显示的分享图标
   mobile_sites: weibo,qq,qzone  # 移动端显示的分享图标
 
@@ -193,41 +193,38 @@ fb_app_id:
 # profile
 profile:
   enabled: true # Whether to show profile bar
-  articleSelfBlock: false # 关闭文章下方的自我介绍
-  avatar: images/avatar.jpg
+  articleSelfBlock: true # 关闭文章下方的自我介绍
+  avatar: images/labixiaoxin.jpg
   gravatar: # Gravatar email address, if you enable Gravatar, your avatar config will be overriden
-  author: 昵称
-  author_title: Web Developer & Designer
-  author_description: 个人简介。
-  location: Shenzhen, China
-  follow: https://github.com/cofess
+  author: bad2cat
+  author_title: 程序员&心理学&认知科学
+  author_description: 正在探索一条自我发展的可持续道路.
+  location: Xi'an, China
+  follow: https://github.com/bad2cat
   # Social Links
   social:
     links:
       github: https://github.com/cofess
-      weibo: http://weibo.com/cofess
-      twitter: https://twitter.com/iwebued
+      #weibo: http://weibo.com/cofess
+      #twitter: https://twitter.com/iwebued
       # facebook: /
       # dribbble: /
-      behance: https://www.behance.net/cofess
+      #behance: https://www.behance.net/cofess
       rss: atom.xml
     link_tooltip: true # enable the social link tooltip, options: true, false
   # My Skills 
   skills:
     Git: ★★★☆☆
-    Gulp: ★★★☆☆
     Javascript: ★★★☆☆
     HTML+CSS: ★★★☆☆
     Bootstrap: ★★★☆☆
-    ThinkPHP: ★★★☆☆
-    平面设计: ★★★☆☆
   # My Personal Links
   links:
-    Github: https://github.com/cofess
-    Blog: http://blog.cofess.com
-    微博: http://weibo.com/cofess
-    花瓣: http://huaban.com/cofess
-    Behance: https://www.behance.net/cofess
+    Github: https://github.com/bad2cat
+    #Blog: http://blog.cofess.com
+    #微博: http://weibo.com/cofess
+    #花瓣: http://huaban.com/cofess
+    #Behance: https://www.behance.net/cofess
   # My Personal Labels
   labels:
     - 前端
@@ -239,8 +236,8 @@ profile:
   works:
     name:
       link: http://www.example.com
-      date: 2016
+      date: 2022
   # My Personal Projects
   projects:
-    cofess/gulp-startpro: https://github.com/cofess/gulp-startpro
-    cofess/hexo-theme-pure: https://github.com/cofess/hexo-theme-pure
+    #cofess/gulp-startpro: https://github.com/cofess/gulp-startpro
+    #cofess/hexo-theme-pure: https://github.com/cofess/hexo-theme-pure
