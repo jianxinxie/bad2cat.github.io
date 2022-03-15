@@ -19,7 +19,7 @@
         <%- post.excerpt %>
         <% if (theme.config.excerpt_link){ %>
           <p class="article-more-link">
-            <a href="<%- url_for(post.path) %>#more" style="color: #2196f3,text-decoration: none,float: right"><%= theme.config.excerpt_link %></a>
+            <a href="<%- url_for(post.path) %>#more"><%= theme.config.excerpt_link %></a>
           </p>
         <% } %>
       <% } else { %>
