@@ -110,7 +110,7 @@ theme: pure
 
 ### set blog preview summary
 excerpt:
-   depth: 5
+   depth: 3
    excerpt_excludes: []
    more_excludes: []
    hideWholePostExcerpts: true
