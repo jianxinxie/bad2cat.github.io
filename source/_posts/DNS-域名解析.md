@@ -1,8 +1,11 @@
 ---
 title: DNS 如何实现域名的解析
 date: 2022-03-13 20:08:56
-tags: DNS,域名解析
-category: 网络
+categories:
+- 网络
+tags:
+- DNS
+- 域名解析
 description: 这两天在阿里云买了一个域名，然后又在`github`上搭建了一个个人博客，然后就按照官方的指导一步步的将域名解析到了`github`上搭建的个人博客上
 ---
 
