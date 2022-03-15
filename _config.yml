@@ -108,6 +108,13 @@ ignore:
 ## theme: landscape
 theme: pure
 
+### set blog preview summary
+excerpt:
+   depth: 5
+   excerpt_excludes: []
+   more_excludes: []
+   hideWholePostExcerpts: true
+
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:

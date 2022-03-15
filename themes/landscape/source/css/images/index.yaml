@@ -1,0 +1,977 @@
+apiVersion: v1
+entries:
+  aac/apm:
+  - apiVersion: v1
+    appVersion: 3.11.3
+    created: "2022-03-15T10:03:27.775117077+08:00"
+    dependencies:
+    - condition: apps.portalApmEnable
+      name: portal-apm
+      repository: https://harbor.arfa.wise-paas.com/chartrepo/apm
+      tags:
+      - dedicateMode
+      - managedModeFrontend
+      - ensaasDedicate
+      - ensaasTenant
+      version: 3.11.3
+    - condition: apps.apmScheduleEnable
+      name: apm-schedule
+      repository: https://harbor.arfa.wise-paas.com/chartrepo/apm
+      tags:
+      - dedicateMode
+      - managedModeBackend
+      - ensaasDedicate
+      - ensaasManaged
+      version: 3.11.3
+    - condition: apps.apiApmEnable
+      name: api-apm
+      repository: https://harbor.arfa.wise-paas.com/chartrepo/apm
+      tags:
+      - dedicateMode
+      - managedModeBackend
+      - ensaasDedicate
+      - ensaasManaged
+      version: 3.11.3
+    - condition: apps.apmDbBridgeEnable
+      name: apm-db-bridge
+      repository: https://harbor.arfa.wise-paas.com/chartrepo/apm
+      tags:
+      - dedicateMode
+      - managedModeBackend
+      - ensaasDedicate
+      - ensaasManaged
+      version: 3.11.3
+    - condition: apps.apmAlarmEnable
+      name: apm-alarm
+      repository: https://harbor.arfa.wise-paas.com/chartrepo/apm
+      tags:
+      - dedicateMode
+      - managedModeBackend
+      - ensaasDedicate
+      - ensaasManaged
+      version: 3.11.3
+    - condition: apps.apmAlarmProcessEnable
+      name: apm-alarm-process
+      repository: https://harbor.arfa.wise-paas.com/chartrepo/apm
+      tags:
+      - dedicateMode
+      - managedModeBackend
+      - ensaasDedicate
+      - ensaasManaged
+      version: 3.11.3
+    - condition: apps.apmAIEnable
+      name: apm-ai
+      repository: https://harbor.arfa.wise-paas.com/chartrepo/apm
+      tags:
+      - dedicateMode
+      - managedModeBackend
+      - ensaasDedicate
+      - ensaasManaged
+      version: 3.11.3
+    - condition: apps.apmMeasureEnable
+      name: apm-measure
+      repository: https://harbor.arfa.wise-paas.com/chartrepo/apm
+      tags:
+      - dedicateMode
+      - managedModeBackend
+      - ensaasDedicate
+      - ensaasManaged
+      version: 3.11.3
+    - condition: apps.apmAuthorityEnable
+      name: apm-authority
+      repository: https://harbor.arfa.wise-paas.com/chartrepo/apm
+      tags:
+      - dedicateMode
+      - managedModeBackend
+      - ensaasDedicate
+      - ensaasManaged
+      version: 3.11.3
+    - condition: apps.apmMesEnable
+      name: apm-mes
+      repository: https://harbor.arfa.wise-paas.com/chartrepo/apm
+      tags:
+      - dedicateMode
+      - managedModeBackend
+      - ensaasDedicate
+      - ensaasManaged
+      version: 3.11.3
+    - condition: apps.apmReportEnable
+      name: apm-report
+      repository: https://harbor.arfa.wise-paas.com/chartrepo/apm
+      tags:
+      - dedicateMode
+      - managedModeBackend
+      - ensaasDedicate
+      - ensaasManaged
+      version: 3.11.3
+    - condition: apps.apmVisualServiceEnable
+      name: apm-visual-service
+      repository: https://harbor.arfa.wise-paas.com/chartrepo/apm
+      tags:
+      - apmVisualTag
+      version: 3.11.3
+    - condition: apps.apmVisualServerEnable
+      name: apm-visual-server
+      repository: https://harbor.arfa.wise-paas.com/chartrepo/apm
+      tags:
+      - apmVisualTag
+      version: 3.11.3
+    - condition: apps.apmManagerEnable
+      name: apm-manager
+      repository: https://harbor.arfa.wise-paas.com/chartrepo/apm
+      tags:
+      - dedicateMode
+      - managedModeBackend
+      - ensaasDedicate
+      - ensaasManaged
+      version: 3.11.3
+    - condition: apps.apmBridgeEnable
+      name: apm-rest-bridge
+      repository: https://harbor.arfa.wise-paas.com/chartrepo/apm
+      tags:
+      - dedicateMode
+      - managedModeBackend
+      - ensaasDedicate
+      - ensaasManaged
+      version: 3.11.3
+    - condition: apps.apmDashboardEnable
+      name: apm-dashboard-api
+      repository: https://harbor.arfa.wise-paas.com/chartrepo/apm
+      tags:
+      - dedicateMode
+      - managedModeFrontend
+      - ensaasDedicate
+      - ensaasTenant
+      version: 3.11.3
+    - condition: apps.disApmEnable
+      name: apm-dis
+      repository: https://harbor.arfa.wise-paas.com/chartrepo/apm
+      tags:
+      - dedicateMode
+      - managedModeFrontend
+      version: 3.11.3
+    - condition: apps.apmPushEnable
+      name: apm-push
+      repository: https://harbor.arfa.wise-paas.com/chartrepo/apm
+      tags:
+      - dedicateMode
+      - managedModeBackend
+      version: 3.11.3
+    - condition: apps.maintenanceApmEnable
+      name: apm-maintenance
+      repository: https://harbor.arfa.wise-paas.com/chartrepo/apm
+      version: 3.11.3
+    - condition: apps.apmEtlEnable
+      name: apm-etl
+      repository: https://harbor.arfa.wise-paas.com/chartrepo/apm
+      version: 3.11.3
+    description: A Helm chart for apm
+    digest: 33d1863f9672088b9c9b42142bdbd80df6f52fdc6dd9db2f57565b110230015e
+    name: aac/apm
+    urls:
+    - http://172.21.84.211:8080/v1.0/aac/charts/apm-3.11.3.tgz
+    version: 3.11.3
+  apple/apprepo-integration:
+  - apiVersion: v2
+    appVersion: v-1.0.0.7
+    created: "2021-07-13T14:31:23.475784609+08:00"
+    description: A Helm chart for Kubernetes
+    digest: 94c9c800f78e2619e9fa656114a5a1852797525167613ff96b896cb2b650d9a9
+    name: apple/apprepo-integration
+    type: application
+    urls:
+    - http://172.21.84.187:8080/v1.0/apple/charts/apprepo-integration-1.0.7.tgz
+    version: 1.0.7
+  apple/dashboard-pro:
+  - apiVersion: v1
+    appVersion: v-3.0.11
+    created: "2021-07-13T14:31:23.526170802+08:00"
+    description: A dashboard chart for Kubernetes
+    digest: 5c2f4c5a772cb30eb9ff6212d3260fef526aa465e26619bc30864cf95f266961
+    name: apple/dashboard-pro
+    urls:
+    - http://172.21.84.187:8080/v1.0/apple/charts/dashboard-pro-3.0.11.tgz
+    version: 3.0.11
+  - apiVersion: v1
+    appVersion: v-3.0.10
+    created: "2021-07-13T14:31:23.506719818+08:00"
+    description: A dashboard chart for Kubernetes
+    digest: e73ca251b001975b2678a9e362103a3eab471528e9a0f37798923a58b4cfaf21
+    name: apple/dashboard-pro
+    urls:
+    - http://172.21.84.187:8080/v1.0/apple/charts/dashboard-pro-3.0.10.tgz
+    version: 3.0.10
+  - apiVersion: v1
+    appVersion: v-3.0.9
+    created: "2021-07-13T14:32:26.960700856+08:00"
+    description: A dashboard chart for Kubernetes
+    digest: 3bd29ce3168afc9893ae413b9c60afcb80a2206c3e479b0d3beb6af216f45919
+    name: apple/dashboard-pro
+    urls:
+    - http://172.21.84.187:8080/v1.0/apple/charts/dashboard-pro-3.0.9.tgz
+    version: 3.0.9
+  apple/myapps:
+  - apiVersion: v2
+    appVersion: 1.0.0.1
+    created: "2021-07-13T14:31:53.980272685+08:00"
+    description: A Helm chart for Kubernetes
+    digest: 62a33ca24da18ba11b3c89f864bfd594424dda8750af73f3418e21276acde9f5
+    name: apple/myapps
+    type: application
+    urls:
+    - http://172.21.84.187:8080/v1.0/apple/charts/myapps-1.0.1.tgz
+    version: 1.0.1
+  apple/notification:
+  - apiVersion: v2
+    appVersion: 1.1.12
+    created: "2021-07-13T14:31:54.052705332+08:00"
+    description: A Helm chart for notification
+    digest: 34cd452d3ab5d9887a1a2c0006baea1d4efb24a64b291901a5ba1e02095b18c4
+    name: apple/notification
+    urls:
+    - http://172.21.84.187:8080/v1.0/apple/charts/notification-1.1.12.tgz
+    version: 1.1.12
+  awzure/apprepo-integration:
+  - apiVersion: v2
+    appVersion: v-1.0.0.7
+    created: "2021-07-13T15:00:23.362776864+08:00"
+    description: A Helm chart for Kubernetes
+    digest: 94c9c800f78e2619e9fa656114a5a1852797525167613ff96b896cb2b650d9a9
+    name: awzure/apprepo-integration
+    type: application
+    urls:
+    - http://172.21.84.187:8080/v1.0/awzure/charts/apprepo-integration-1.0.7.tgz
+    version: 1.0.7
+  awzure/dashboard-pro:
+  - apiVersion: v1
+    appVersion: v-3.0.11
+    created: "2021-07-13T15:00:23.390114756+08:00"
+    description: A dashboard chart for Kubernetes
+    digest: 5c2f4c5a772cb30eb9ff6212d3260fef526aa465e26619bc30864cf95f266961
+    name: awzure/dashboard-pro
+    urls:
+    - http://172.21.84.187:8080/v1.0/awzure/charts/dashboard-pro-3.0.11.tgz
+    version: 3.0.11
+  - apiVersion: v1
+    appVersion: v-3.0.10
+    created: "2021-07-13T15:00:23.385629649+08:00"
+    description: A dashboard chart for Kubernetes
+    digest: e73ca251b001975b2678a9e362103a3eab471528e9a0f37798923a58b4cfaf21
+    name: awzure/dashboard-pro
+    urls:
+    - http://172.21.84.187:8080/v1.0/awzure/charts/dashboard-pro-3.0.10.tgz
+    version: 3.0.10
+  - apiVersion: v1
+    appVersion: v-3.0.9
+    created: "2021-07-13T15:00:23.295242946+08:00"
+    description: A dashboard chart for Kubernetes
+    digest: 3bd29ce3168afc9893ae413b9c60afcb80a2206c3e479b0d3beb6af216f45919
+    name: awzure/dashboard-pro
+    urls:
+    - http://172.21.84.187:8080/v1.0/awzure/charts/dashboard-pro-3.0.9.tgz
+    version: 3.0.9
+  awzure/myapps:
+  - apiVersion: v2
+    appVersion: 1.0.0.1
+    created: "2021-07-13T15:00:23.478221172+08:00"
+    description: A Helm chart for Kubernetes
+    digest: 62a33ca24da18ba11b3c89f864bfd594424dda8750af73f3418e21276acde9f5
+    name: awzure/myapps
+    type: application
+    urls:
+    - http://172.21.84.187:8080/v1.0/awzure/charts/myapps-1.0.1.tgz
+    version: 1.0.1
+  awzure/notification:
+  - apiVersion: v2
+    appVersion: 1.1.12
+    created: "2021-07-13T15:00:23.575382766+08:00"
+    description: A Helm chart for notification
+    digest: 34cd452d3ab5d9887a1a2c0006baea1d4efb24a64b291901a5ba1e02095b18c4
+    name: awzure/notification
+    urls:
+    - http://172.21.84.187:8080/v1.0/awzure/charts/notification-1.1.12.tgz
+    version: 1.1.12
+  dashboard/dashboard-pro:
+  - apiVersion: v1
+    appVersion: v-3.0.11
+    created: "2021-08-18T14:58:00.759886552+08:00"
+    description: A dashboard chart for Kubernetes
+    digest: 5c2f4c5a772cb30eb9ff6212d3260fef526aa465e26619bc30864cf95f266961
+    name: dashboard/dashboard-pro
+    urls:
+    - http://172.21.84.187:8080/v1.0/dashboard/charts/dashboard-pro-3.0.11.tgz
+    version: 3.0.11
+  fae/apprepo-integration:
+  - apiVersion: v2
+    appVersion: v-1.0.0.7
+    created: "2021-07-13T11:48:06.323141706+08:00"
+    description: A Helm chart for Kubernetes
+    digest: 94c9c800f78e2619e9fa656114a5a1852797525167613ff96b896cb2b650d9a9
+    name: fae/apprepo-integration
+    type: application
+    urls:
+    - http://172.21.84.187:8080/v1.0/fae/charts/apprepo-integration-1.0.7.tgz
+    version: 1.0.7
+  fae/dashboard-pro:
+  - apiVersion: v1
+    appVersion: v-3.0.11
+    created: "2021-07-13T11:48:02.376002669+08:00"
+    description: A dashboard chart for Kubernetes
+    digest: 5c2f4c5a772cb30eb9ff6212d3260fef526aa465e26619bc30864cf95f266961
+    name: fae/dashboard-pro
+    urls:
+    - http://172.21.84.187:8080/v1.0/fae/charts/dashboard-pro-3.0.11.tgz
+    version: 3.0.11
+  - apiVersion: v1
+    appVersion: v-3.0.10
+    created: "2021-07-13T11:50:20.840911575+08:00"
+    description: A dashboard chart for Kubernetes
+    digest: e73ca251b001975b2678a9e362103a3eab471528e9a0f37798923a58b4cfaf21
+    name: fae/dashboard-pro
+    urls:
+    - http://172.21.84.187:8080/v1.0/fae/charts/dashboard-pro-3.0.10.tgz
+    version: 3.0.10
+  - apiVersion: v1
+    appVersion: v-3.0.9
+    created: "2021-07-13T11:48:06.177327674+08:00"
+    description: A dashboard chart for Kubernetes
+    digest: 3bd29ce3168afc9893ae413b9c60afcb80a2206c3e479b0d3beb6af216f45919
+    name: fae/dashboard-pro
+    urls:
+    - http://172.21.84.187:8080/v1.0/fae/charts/dashboard-pro-3.0.9.tgz
+    version: 3.0.9
+  fae/myapps:
+  - apiVersion: v2
+    appVersion: 1.0.0.1
+    created: "2021-07-13T11:47:50.423611175+08:00"
+    description: A Helm chart for Kubernetes
+    digest: 62a33ca24da18ba11b3c89f864bfd594424dda8750af73f3418e21276acde9f5
+    name: fae/myapps
+    type: application
+    urls:
+    - http://172.21.84.187:8080/v1.0/fae/charts/myapps-1.0.1.tgz
+    version: 1.0.1
+  fae/notification:
+  - apiVersion: v2
+    appVersion: 1.1.12
+    created: "2021-07-13T11:48:06.408874029+08:00"
+    description: A Helm chart for notification
+    digest: 34cd452d3ab5d9887a1a2c0006baea1d4efb24a64b291901a5ba1e02095b18c4
+    name: fae/notification
+    urls:
+    - http://172.21.84.187:8080/v1.0/fae/charts/notification-1.1.12.tgz
+    version: 1.1.12
+  hhh/notification:
+  - apiVersion: v2
+    appVersion: 1.1.12
+    created: "2021-07-13T13:47:32.826380698+08:00"
+    description: A Helm chart for notification
+    digest: 34cd452d3ab5d9887a1a2c0006baea1d4efb24a64b291901a5ba1e02095b18c4
+    name: hhh/notification
+    urls:
+    - http://172.21.84.187:8080/v1.0/hhh/charts/notification-1.1.12.tgz
+    version: 1.1.12
+  jjjj/apprepo-integration:
+  - apiVersion: v2
+    appVersion: v-1.0.0.7
+    created: "2021-07-13T13:54:34.442821641+08:00"
+    description: A Helm chart for Kubernetes
+    digest: 94c9c800f78e2619e9fa656114a5a1852797525167613ff96b896cb2b650d9a9
+    name: jjjj/apprepo-integration
+    type: application
+    urls:
+    - http://172.21.84.187:8080/v1.0/jjjj/charts/apprepo-integration-1.0.7.tgz
+    version: 1.0.7
+  jjjj/dashboard-pro:
+  - apiVersion: v1
+    appVersion: v-3.0.11
+    created: "2021-07-13T13:55:16.008243407+08:00"
+    description: A dashboard chart for Kubernetes
+    digest: 5c2f4c5a772cb30eb9ff6212d3260fef526aa465e26619bc30864cf95f266961
+    name: jjjj/dashboard-pro
+    urls:
+    - http://172.21.84.187:8080/v1.0/jjjj/charts/dashboard-pro-3.0.11.tgz
+    version: 3.0.11
+  - apiVersion: v1
+    appVersion: v-3.0.10
+    created: "2021-07-13T13:55:12.888135252+08:00"
+    description: A dashboard chart for Kubernetes
+    digest: e73ca251b001975b2678a9e362103a3eab471528e9a0f37798923a58b4cfaf21
+    name: jjjj/dashboard-pro
+    urls:
+    - http://172.21.84.187:8080/v1.0/jjjj/charts/dashboard-pro-3.0.10.tgz
+    version: 3.0.10
+  - apiVersion: v1
+    appVersion: v-3.0.9
+    created: "2021-07-13T13:54:34.536661361+08:00"
+    description: A dashboard chart for Kubernetes
+    digest: 3bd29ce3168afc9893ae413b9c60afcb80a2206c3e479b0d3beb6af216f45919
+    name: jjjj/dashboard-pro
+    urls:
+    - http://172.21.84.187:8080/v1.0/jjjj/charts/dashboard-pro-3.0.9.tgz
+    version: 3.0.9
+  jjjj/notification:
+  - apiVersion: v2
+    appVersion: 1.1.12
+    created: "2021-07-13T13:56:19.823735245+08:00"
+    description: A Helm chart for notification
+    digest: 34cd452d3ab5d9887a1a2c0006baea1d4efb24a64b291901a5ba1e02095b18c4
+    name: jjjj/notification
+    urls:
+    - http://172.21.84.187:8080/v1.0/jjjj/charts/notification-1.1.12.tgz
+    version: 1.1.12
+  kkyy/apprepo-integration:
+  - apiVersion: v2
+    appVersion: v-1.0.0.7
+    created: "2021-07-13T14:24:22.715140517+08:00"
+    description: A Helm chart for Kubernetes
+    digest: 94c9c800f78e2619e9fa656114a5a1852797525167613ff96b896cb2b650d9a9
+    name: kkyy/apprepo-integration
+    type: application
+    urls:
+    - http://172.21.84.187:8080/v1.0/kkyy/charts/apprepo-integration-1.0.7.tgz
+    version: 1.0.7
+  kkyy/dashboard-pro:
+  - apiVersion: v1
+    appVersion: v-3.0.11
+    created: "2021-07-13T14:22:17.2747076+08:00"
+    description: A dashboard chart for Kubernetes
+    digest: 5c2f4c5a772cb30eb9ff6212d3260fef526aa465e26619bc30864cf95f266961
+    name: kkyy/dashboard-pro
+    urls:
+    - http://172.21.84.187:8080/v1.0/kkyy/charts/dashboard-pro-3.0.11.tgz
+    version: 3.0.11
+  - apiVersion: v1
+    appVersion: v-3.0.10
+    created: "2021-07-13T14:24:22.707146203+08:00"
+    description: A dashboard chart for Kubernetes
+    digest: e73ca251b001975b2678a9e362103a3eab471528e9a0f37798923a58b4cfaf21
+    name: kkyy/dashboard-pro
+    urls:
+    - http://172.21.84.187:8080/v1.0/kkyy/charts/dashboard-pro-3.0.10.tgz
+    version: 3.0.10
+  - apiVersion: v1
+    appVersion: v-3.0.9
+    created: "2021-07-13T14:22:17.234200333+08:00"
+    description: A dashboard chart for Kubernetes
+    digest: 3bd29ce3168afc9893ae413b9c60afcb80a2206c3e479b0d3beb6af216f45919
+    name: kkyy/dashboard-pro
+    urls:
+    - http://172.21.84.187:8080/v1.0/kkyy/charts/dashboard-pro-3.0.9.tgz
+    version: 3.0.9
+  kkyy/myapps:
+  - apiVersion: v2
+    appVersion: 1.0.0.1
+    created: "2021-07-13T14:24:22.728291215+08:00"
+    description: A Helm chart for Kubernetes
+    digest: 62a33ca24da18ba11b3c89f864bfd594424dda8750af73f3418e21276acde9f5
+    name: kkyy/myapps
+    type: application
+    urls:
+    - http://172.21.84.187:8080/v1.0/kkyy/charts/myapps-1.0.1.tgz
+    version: 1.0.1
+  kkyy/notification:
+  - apiVersion: v2
+    appVersion: 1.1.12
+    created: "2021-07-13T14:21:56.176160838+08:00"
+    description: A Helm chart for notification
+    digest: 34cd452d3ab5d9887a1a2c0006baea1d4efb24a64b291901a5ba1e02095b18c4
+    name: kkyy/notification
+    urls:
+    - http://172.21.84.187:8080/v1.0/kkyy/charts/notification-1.1.12.tgz
+    version: 1.1.12
+  library/apprepo-integration:
+  - apiVersion: v2
+    appVersion: v-1.0.0.7
+    created: "2021-04-21T18:05:00.274192992+08:00"
+    description: A Helm chart for Kubernetes
+    digest: 94c9c800f78e2619e9fa656114a5a1852797525167613ff96b896cb2b650d9a9
+    name: library/apprepo-integration
+    type: application
+    urls:
+    - library/charts/apprepo-integration-1.0.7.tgz
+    version: 1.0.7
+  library/dashboard:
+  - apiVersion: v1
+    appVersion: 2.0.9
+    created: "2021-04-21T18:04:00.020847304+08:00"
+    description: A dashboard chart for Kubernetes
+    digest: 89dd6c4b09fcebea159d6f7805d20af797700f9c6d9fe2d8e5614f38baa81e62
+    name: library/dashboard
+    urls:
+    - library/charts/dashboard-2.0.9.tgz
+    version: 2.0.9
+  library/license-agent:
+  - apiVersion: v2
+    appVersion: v-1.0.0.13
+    created: "2021-03-18T16:39:06.635202797+08:00"
+    description: A Helm chart for Kubernetes
+    digest: d86122a3c92c239e520d4a66206d0a02f6eb80cc1282464446e45555658bdb7a
+    name: library/license-agent
+    type: application
+    urls:
+    - library/charts/license-agent-1.0.13.tgz
+    version: 1.0.13
+  micro/apprepo-integration:
+  - apiVersion: v2
+    appVersion: v-1.0.0.7
+    created: "2021-07-13T14:58:18.989746284+08:00"
+    description: A Helm chart for Kubernetes
+    digest: 94c9c800f78e2619e9fa656114a5a1852797525167613ff96b896cb2b650d9a9
+    name: micro/apprepo-integration
+    type: application
+    urls:
+    - http://172.21.84.187:8080/v1.0/micro/charts/apprepo-integration-1.0.7.tgz
+    version: 1.0.7
+  micro/dashboard-pro:
+  - apiVersion: v1
+    appVersion: v-3.0.11
+    created: "2021-07-13T14:58:18.742260331+08:00"
+    description: A dashboard chart for Kubernetes
+    digest: 5c2f4c5a772cb30eb9ff6212d3260fef526aa465e26619bc30864cf95f266961
+    name: micro/dashboard-pro
+    urls:
+    - http://172.21.84.187:8080/v1.0/micro/charts/dashboard-pro-3.0.11.tgz
+    version: 3.0.11
+  - apiVersion: v1
+    appVersion: v-3.0.10
+    created: "2021-07-13T14:58:18.698717206+08:00"
+    description: A dashboard chart for Kubernetes
+    digest: e73ca251b001975b2678a9e362103a3eab471528e9a0f37798923a58b4cfaf21
+    name: micro/dashboard-pro
+    urls:
+    - http://172.21.84.187:8080/v1.0/micro/charts/dashboard-pro-3.0.10.tgz
+    version: 3.0.10
+  - apiVersion: v1
+    appVersion: v-3.0.9
+    created: "2021-07-13T14:58:18.855908972+08:00"
+    description: A dashboard chart for Kubernetes
+    digest: 3bd29ce3168afc9893ae413b9c60afcb80a2206c3e479b0d3beb6af216f45919
+    name: micro/dashboard-pro
+    urls:
+    - http://172.21.84.187:8080/v1.0/micro/charts/dashboard-pro-3.0.9.tgz
+    version: 3.0.9
+  micro/myapps:
+  - apiVersion: v2
+    appVersion: 1.0.0.1
+    created: "2021-07-13T14:58:18.854039749+08:00"
+    description: A Helm chart for Kubernetes
+    digest: 62a33ca24da18ba11b3c89f864bfd594424dda8750af73f3418e21276acde9f5
+    name: micro/myapps
+    type: application
+    urls:
+    - http://172.21.84.187:8080/v1.0/micro/charts/myapps-1.0.1.tgz
+    version: 1.0.1
+  micro/notification:
+  - apiVersion: v2
+    appVersion: 1.1.12
+    created: "2021-07-13T14:58:18.789907477+08:00"
+    description: A Helm chart for notification
+    digest: 34cd452d3ab5d9887a1a2c0006baea1d4efb24a64b291901a5ba1e02095b18c4
+    name: micro/notification
+    urls:
+    - http://172.21.84.187:8080/v1.0/micro/charts/notification-1.1.12.tgz
+    version: 1.1.12
+  notification/notification:
+  - apiVersion: v2
+    appVersion: 1.1.12
+    created: "2021-08-18T14:58:01.022085313+08:00"
+    description: A Helm chart for notification
+    digest: 34cd452d3ab5d9887a1a2c0006baea1d4efb24a64b291901a5ba1e02095b18c4
+    name: notification/notification
+    urls:
+    - http://172.21.84.187:8080/v1.0/notification/charts/notification-1.1.12.tgz
+    version: 1.1.12
+  opo/apprepo-integration:
+  - apiVersion: v2
+    appVersion: v-1.0.0.7
+    created: "2021-07-13T14:25:06.023674024+08:00"
+    description: A Helm chart for Kubernetes
+    digest: 94c9c800f78e2619e9fa656114a5a1852797525167613ff96b896cb2b650d9a9
+    name: opo/apprepo-integration
+    type: application
+    urls:
+    - http://172.21.84.187:8080/v1.0/opo/charts/apprepo-integration-1.0.7.tgz
+    version: 1.0.7
+  opo/dashboard-pro:
+  - apiVersion: v1
+    appVersion: v-3.0.11
+    created: "2021-07-13T14:25:09.369252486+08:00"
+    description: A dashboard chart for Kubernetes
+    digest: 5c2f4c5a772cb30eb9ff6212d3260fef526aa465e26619bc30864cf95f266961
+    name: opo/dashboard-pro
+    urls:
+    - http://172.21.84.187:8080/v1.0/opo/charts/dashboard-pro-3.0.11.tgz
+    version: 3.0.11
+  - apiVersion: v1
+    appVersion: v-3.0.10
+    created: "2021-07-13T14:25:10.613715492+08:00"
+    description: A dashboard chart for Kubernetes
+    digest: e73ca251b001975b2678a9e362103a3eab471528e9a0f37798923a58b4cfaf21
+    name: opo/dashboard-pro
+    urls:
+    - http://172.21.84.187:8080/v1.0/opo/charts/dashboard-pro-3.0.10.tgz
+    version: 3.0.10
+  - apiVersion: v1
+    appVersion: v-3.0.9
+    created: "2021-07-13T14:25:10.638453056+08:00"
+    description: A dashboard chart for Kubernetes
+    digest: 3bd29ce3168afc9893ae413b9c60afcb80a2206c3e479b0d3beb6af216f45919
+    name: opo/dashboard-pro
+    urls:
+    - http://172.21.84.187:8080/v1.0/opo/charts/dashboard-pro-3.0.9.tgz
+    version: 3.0.9
+  opo/myapps:
+  - apiVersion: v2
+    appVersion: 1.0.0.1
+    created: "2021-07-13T14:25:09.966278549+08:00"
+    description: A Helm chart for Kubernetes
+    digest: 62a33ca24da18ba11b3c89f864bfd594424dda8750af73f3418e21276acde9f5
+    name: opo/myapps
+    type: application
+    urls:
+    - http://172.21.84.187:8080/v1.0/opo/charts/myapps-1.0.1.tgz
+    version: 1.0.1
+  opo/notification:
+  - apiVersion: v2
+    appVersion: 1.1.12
+    created: "2021-07-13T14:25:10.616776104+08:00"
+    description: A Helm chart for notification
+    digest: 34cd452d3ab5d9887a1a2c0006baea1d4efb24a64b291901a5ba1e02095b18c4
+    name: opo/notification
+    urls:
+    - http://172.21.84.187:8080/v1.0/opo/charts/notification-1.1.12.tgz
+    version: 1.1.12
+  sdtest/saas-composer:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: "2021-08-18T14:58:01.180435294+08:00"
+    description: A Helm chart for Kubernetes
+    digest: d82cf302bfc9e3f98d7e751584e34f0d6cf8d3cfbba05c29c703e3c489ebb847
+    name: sdtest/saas-composer
+    urls:
+    - http://172.21.84.187:8080/v1.0/sdtest/charts/saas-composer-3.0.9.tgz
+    version: 3.0.9
+  test/apprepo:
+  - apiVersion: v2
+    appVersion: v-1.0.0.15
+    created: "2021-07-12T16:24:41.680481803+08:00"
+    description: A Helm chart for Kubernetes
+    digest: c1e461cdc4fe1e16fd9b88299637e756b5cd600bd044b0e992d0b3dcd0de840f
+    name: test/apprepo
+    type: application
+    urls:
+    - test/charts/apprepo-1.0.15.tgz
+    version: 1.0.15
+  - apiVersion: v2
+    appVersion: v-1.0.0.14
+    created: "2021-07-12T16:24:40.301536933+08:00"
+    description: A Helm chart for Kubernetes
+    digest: 62c3c8e8007a3fdd8479ef08eb8c10b7eb3c3c19ac75b083987f038ebbfdf7ac
+    name: test/apprepo
+    type: application
+    urls:
+    - test/charts/apprepo-1.0.14.tgz
+    version: 1.0.14
+  - apiVersion: v2
+    appVersion: v-1.0.0.13
+    created: "2021-07-12T16:24:39.152369432+08:00"
+    description: A Helm chart for Kubernetes
+    digest: 1843fea795345d0674b77ba833e950ec435a0faa0451edbb3cae75252fd6ec3c
+    name: test/apprepo
+    type: application
+    urls:
+    - test/charts/apprepo-1.0.13.tgz
+    version: 1.0.13
+  - apiVersion: v2
+    appVersion: v-1.0.0.12
+    created: "2021-07-12T16:24:40.800236316+08:00"
+    description: A Helm chart for Kubernetes
+    digest: f55310abe224d07c59af260faf270bcca29490b2c99a1988555f2324f5069d1f
+    name: test/apprepo
+    type: application
+    urls:
+    - test/charts/apprepo-1.0.12.tgz
+    version: 1.0.12
+  - apiVersion: v2
+    appVersion: v-1.0.0.11
+    created: "2021-07-12T16:24:40.730389142+08:00"
+    description: A Helm chart for Kubernetes
+    digest: 6cdbca4b7ce2faa5143269d4c55fd136056b3a3f50ecbd527758e430692e4728
+    name: test/apprepo
+    type: application
+    urls:
+    - test/charts/apprepo-1.0.11.tgz
+    version: 1.0.11
+  - apiVersion: v2
+    appVersion: v-1.0.0.9
+    created: "2021-07-12T16:24:39.222553213+08:00"
+    description: A Helm chart for Kubernetes
+    digest: 8e9cb60e946fb999dfaa90272a65188d435cf175fc8de515fb491fe846d47d34
+    name: test/apprepo
+    type: application
+    urls:
+    - test/charts/apprepo-1.0.9.tgz
+    version: 1.0.9
+  - apiVersion: v2
+    appVersion: v-1.0.0.8
+    created: "2021-07-12T16:24:41.148996768+08:00"
+    description: A Helm chart for Kubernetes
+    digest: 8b9d77a605fb0a679e82ca1e4f2c6b1536f3be32edd35aa225b243e43ee7feb5
+    name: test/apprepo
+    type: application
+    urls:
+    - test/charts/apprepo-1.0.8.tgz
+    version: 1.0.8
+  - apiVersion: v2
+    appVersion: v-1.0.0.7
+    created: "2021-07-12T16:24:41.478275534+08:00"
+    description: A Helm chart for Kubernetes
+    digest: f17a64eb77ada24670bd9b0363fc264f1918f7b412da31cb82a9204cdf96fadb
+    name: test/apprepo
+    type: application
+    urls:
+    - test/charts/apprepo-1.0.7.tgz
+    version: 1.0.7
+  - apiVersion: v2
+    appVersion: v-1.0.0.6
+    created: "2021-07-12T16:24:39.935853978+08:00"
+    description: A Helm chart for Kubernetes
+    digest: fca3858e5c17d8e47b773aa0ec91695340570fcd67b272bc52365c8ef78aa41c
+    name: test/apprepo
+    type: application
+    urls:
+    - test/charts/apprepo-1.0.6.tgz
+    version: 1.0.6
+  - apiVersion: v2
+    appVersion: v-1.0.0.5
+    created: "2021-07-12T16:24:52.977068688+08:00"
+    description: A Helm chart for Kubernetes
+    digest: 1216c6013a7f618234bed39abdd81a851c563fe018e53dc1f7b74c4bea91cc3b
+    name: test/apprepo
+    type: application
+    urls:
+    - test/charts/apprepo-1.0.5.tgz
+    version: 1.0.5
+  - apiVersion: v2
+    appVersion: v-1.0.0.4
+    created: "2021-07-12T16:24:42.756694001+08:00"
+    description: A Helm chart for Kubernetes
+    digest: 02d7ea9d7c6282a3fe0560bfd8a7c736c8a4b2ab2bd2b84a9ac13eaf29e0d188
+    name: test/apprepo
+    type: application
+    urls:
+    - test/charts/apprepo-1.0.4.tgz
+    version: 1.0.4
+  - apiVersion: v2
+    appVersion: v-1.0.0.3
+    created: "2021-07-12T16:24:41.269481511+08:00"
+    description: A Helm chart for Kubernetes
+    digest: ce19fa1ca41f006111a94e865c6ba17d837a4ff3e7bb881a67204f4e78384212
+    name: test/apprepo
+    type: application
+    urls:
+    - test/charts/apprepo-1.0.3.tgz
+    version: 1.0.3
+  - apiVersion: v2
+    appVersion: v-1.0.0.2
+    created: "2021-07-12T16:24:40.334293978+08:00"
+    description: A Helm chart for Kubernetes
+    digest: 24f111a859254d2a5fb7aa956ff215bb7bd4778ba5e62dba0fd836d79d42d18e
+    name: test/apprepo
+    type: application
+    urls:
+    - test/charts/apprepo-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v2
+    appVersion: v-1.0.0.1
+    created: "2021-07-12T16:24:42.28657457+08:00"
+    description: A Helm chart for Kubernetes
+    digest: a269820dfd3dfa4b8e2a910cd5931e37823a07d20a5562e4644811269bad768d
+    name: test/apprepo
+    type: application
+    urls:
+    - test/charts/apprepo-1.0.1.tgz
+    version: 1.0.1
+  test/apprepo-integration:
+  - apiVersion: v2
+    appVersion: v-1.0.0.15
+    created: "2021-07-12T16:24:40.774857076+08:00"
+    description: A Helm chart for Kubernetes
+    digest: 81b97522b2658a9c710d28a99483c764f19668b295e0ebb6762e67628ed3c06d
+    name: test/apprepo-integration
+    type: application
+    urls:
+    - test/charts/apprepo-integration-1.0.15.tgz
+    version: 1.0.15
+  - apiVersion: v2
+    appVersion: v-1.0.0.13
+    created: "2021-07-12T16:24:42.072048358+08:00"
+    description: A Helm chart for Kubernetes
+    digest: 567ac7188da288b2dd6aadbfadca22c820c56820484b24f6b1bfc5313e8c9dab
+    name: test/apprepo-integration
+    type: application
+    urls:
+    - test/charts/apprepo-integration-1.0.13.tgz
+    version: 1.0.13
+  - apiVersion: v2
+    appVersion: v-1.0.0.12
+    created: "2021-07-12T16:24:42.014267156+08:00"
+    description: A Helm chart for Kubernetes
+    digest: c964f52fd9d7edc1d82c76c79f870e089a38e716ca40f149502f799a43028c7b
+    name: test/apprepo-integration
+    type: application
+    urls:
+    - test/charts/apprepo-integration-1.0.12.tgz
+    version: 1.0.12
+  - apiVersion: v2
+    appVersion: v-1.0.0.8
+    created: "2021-07-12T16:24:41.76135701+08:00"
+    description: A Helm chart for Kubernetes
+    digest: 5993dc3cdcc56c5c2e5fd3adca02aa72e75abe1e35da5a5cf91f083e2f0c4344
+    name: test/apprepo-integration
+    type: application
+    urls:
+    - test/charts/apprepo-integration-1.0.9.tgz
+    version: 1.0.9
+  - apiVersion: v2
+    appVersion: v-1.0.0.7
+    created: "2021-07-12T16:24:41.571710111+08:00"
+    description: A Helm chart for Kubernetes
+    digest: 2d2084e40e008fd20eb56ab58ae28a3ecd9e0441d775db2f58198315540b4c2b
+    name: test/apprepo-integration
+    type: application
+    urls:
+    - test/charts/apprepo-integration-1.0.8.tgz
+    version: 1.0.8
+  - apiVersion: v2
+    appVersion: v-1.0.0.7
+    created: "2021-07-12T16:24:42.368291806+08:00"
+    description: A Helm chart for Kubernetes
+    digest: 94c9c800f78e2619e9fa656114a5a1852797525167613ff96b896cb2b650d9a9
+    name: test/apprepo-integration
+    type: application
+    urls:
+    - test/charts/apprepo-integration-1.0.7.tgz
+    version: 1.0.7
+  - apiVersion: v2
+    appVersion: v-1.0.0.6
+    created: "2021-07-12T16:24:42.240087368+08:00"
+    description: A Helm chart for Kubernetes
+    digest: 4c6bdee5de2d61d36fd5a12c6e7e9480b183795398d926c6091551f157d63df4
+    name: test/apprepo-integration
+    type: application
+    urls:
+    - test/charts/apprepo-integration-1.0.6.tgz
+    version: 1.0.6
+  - apiVersion: v2
+    appVersion: v-1.0.0.5
+    created: "2021-07-12T16:24:41.799079034+08:00"
+    description: A Helm chart for Kubernetes
+    digest: 47f1a4c51d578b1f173026fcc069c24d839f195e70cd71561e94d86f1e6919f6
+    name: test/apprepo-integration
+    type: application
+    urls:
+    - test/charts/apprepo-integration-1.0.5.tgz
+    version: 1.0.5
+  test/dashboard-pro:
+  - apiVersion: v1
+    appVersion: 3.0.19
+    created: "2021-10-28T15:49:19.359144764+08:00"
+    description: A dashboard chart for Kubernetes
+    digest: 0f6622ba506096dfbeb9c5003c65e5e1ff5788b9cba03cbcec1cefb0beab2efc
+    name: test/dashboard-pro
+    urls:
+    - http://172.21.84.187:8080/v1.0/test/charts/dashboard-pro-3.0.19.tgz
+    version: 3.0.19
+  test/datahub:
+  - apiVersion: v2
+    appVersion: 2.0.14
+    created: "2021-10-28T15:49:01.850999492+08:00"
+    description: A Helm chart for datahub (portal & worker)
+    digest: ce71a08dc8494a6e4abe358c831ad4123e8c830ba9ff8ac73974ea1c5f056237
+    name: test/datahub
+    urls:
+    - http://172.21.84.187:8080/v1.0/test/charts/datahub-2.0.14.tgz
+    version: 2.0.14
+  - apiVersion: v2
+    appVersion: 2.0.11
+    created: "2021-04-23T09:20:40.619458097+08:00"
+    description: A Helm chart for datahub (portal & worker)
+    digest: e8f2bf53606f0b7538f28c554c54f8c8bddf1efdfbfd7f1307e5e44461a23a93
+    name: test/datahub
+    urls:
+    - test/charts/datahub-2.0.11.tgz
+    version: 2.0.11
+  test/license-agent:
+  - apiVersion: v2
+    appVersion: v-1.2.0.13-rc1
+    created: "2021-11-10T10:39:15.95950298+08:00"
+    description: A Helm chart for Kubernetes
+    digest: eccbf5f2432abd6bbc5099ea10f0fac569d81be7a1709b25b0bee7cee294a2b2
+    name: test/license-agent
+    type: application
+    urls:
+    - http://172.21.84.211:8080/v1.0/test/charts/license-agent-1.2.13.tgz
+    version: 1.2.13
+  tttt/apprepo-integration:
+  - apiVersion: v2
+    appVersion: v-1.0.0.7
+    created: "2021-07-13T13:49:33.583622561+08:00"
+    description: A Helm chart for Kubernetes
+    digest: 94c9c800f78e2619e9fa656114a5a1852797525167613ff96b896cb2b650d9a9
+    name: tttt/apprepo-integration
+    type: application
+    urls:
+    - http://172.21.84.187:8080/v1.0/tttt/charts/apprepo-integration-1.0.7.tgz
+    version: 1.0.7
+  tttt/dashboard-pro:
+  - apiVersion: v1
+    appVersion: v-3.0.11
+    created: "2021-07-13T13:49:40.703484774+08:00"
+    description: A dashboard chart for Kubernetes
+    digest: 5c2f4c5a772cb30eb9ff6212d3260fef526aa465e26619bc30864cf95f266961
+    name: tttt/dashboard-pro
+    urls:
+    - http://172.21.84.187:8080/v1.0/tttt/charts/dashboard-pro-3.0.11.tgz
+    version: 3.0.11
+  - apiVersion: v1
+    appVersion: v-3.0.10
+    created: "2021-07-13T13:49:39.252262457+08:00"
+    description: A dashboard chart for Kubernetes
+    digest: e73ca251b001975b2678a9e362103a3eab471528e9a0f37798923a58b4cfaf21
+    name: tttt/dashboard-pro
+    urls:
+    - http://172.21.84.187:8080/v1.0/tttt/charts/dashboard-pro-3.0.10.tgz
+    version: 3.0.10
+  - apiVersion: v1
+    appVersion: v-3.0.9
+    created: "2021-07-13T13:49:42.019634851+08:00"
+    description: A dashboard chart for Kubernetes
+    digest: 3bd29ce3168afc9893ae413b9c60afcb80a2206c3e479b0d3beb6af216f45919
+    name: tttt/dashboard-pro
+    urls:
+    - http://172.21.84.187:8080/v1.0/tttt/charts/dashboard-pro-3.0.9.tgz
+    version: 3.0.9
+  tttt/myapps:
+  - apiVersion: v2
+    appVersion: 1.0.0.1
+    created: "2021-07-13T13:49:42.138339104+08:00"
+    description: A Helm chart for Kubernetes
+    digest: 62a33ca24da18ba11b3c89f864bfd594424dda8750af73f3418e21276acde9f5
+    name: tttt/myapps
+    type: application
+    urls:
+    - http://172.21.84.187:8080/v1.0/tttt/charts/myapps-1.0.1.tgz
+    version: 1.0.1
+  tttt/notification:
+  - apiVersion: v2
+    appVersion: 1.1.12
+    created: "2021-07-13T13:49:42.174661937+08:00"
+    description: A Helm chart for notification
+    digest: 34cd452d3ab5d9887a1a2c0006baea1d4efb24a64b291901a5ba1e02095b18c4
+    name: tttt/notification
+    urls:
+    - http://172.21.84.187:8080/v1.0/tttt/charts/notification-1.1.12.tgz
+    version: 1.1.12
+generated: "2022-03-15T10:09:42+08:00"
