@@ -81,9 +81,6 @@ show_count: true
 # Fancybox
 fancybox: false
 
-## excerpt show
-excerpt_description: false
-
 # Search
 search:
   insight: true # you need to install `hexo-generator-json-content` before using Insight Search
