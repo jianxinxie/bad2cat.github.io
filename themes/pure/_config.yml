@@ -4,7 +4,7 @@ menu:
   Archives: archives  # 归档
   Categories: categories  # 分类
   Tags: tags  # 标签
-  Repository: repository  # github repositories
+  #Repository: repository  # github repositories
   Books: books  # 豆瓣书单
   Links: links  # 友链
   About: about  # 关于
@@ -82,7 +82,7 @@ show_count: true
 fancybox: false
 
 ## excerpt show
-excerpt_description: true
+excerpt_description: false
 
 # Search
 search:
@@ -207,7 +207,7 @@ profile:
   # Social Links
   social:
     links:
-      github: https://github.com/cofess
+      github: https://github.com/bad2cat
       #weibo: http://weibo.com/cofess
       #twitter: https://twitter.com/iwebued
       # facebook: /
