@@ -4061,6 +4061,7 @@ svg {
 
 /*link more*/
 .article-more-link {
+	margin-top: 0.8cm;
 	float: right;
 }
 
