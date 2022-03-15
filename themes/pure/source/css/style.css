@@ -4059,6 +4059,11 @@ svg {
   text-indent: 2em;
 }
 
+/*link more*/
+.article-more-link {
+	float: right;
+}
+
 /*text wrap*/
 
 .text-nowrap {
