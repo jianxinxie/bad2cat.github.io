@@ -109,11 +109,11 @@ ignore:
 theme: pure
 
 ### set blog preview summary
-excerpt:
-   depth: 2
-   excerpt_excludes: []
-   more_excludes: []
-   hideWholePostExcerpts: true
+#excerpt:
+#   depth: 2
+#   excerpt_excludes: []
+#   more_excludes: []
+#   hideWholePostExcerpts: true
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
