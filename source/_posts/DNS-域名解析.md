@@ -1,5 +1,5 @@
 ---
-title: 如何解析域名--详解
+title: DNS 域名解析--详解
 date: 2022-03-13 20:08:56
 categories:
 - 网络
