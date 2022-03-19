@@ -1,6 +1,6 @@
 ---
 title: 搭建个人博客(5) - 集成GithubAction
-date: 2022-03-17 18:33:35
+date: 2022-03-17 18:55:35
 tags:
 - hexo
 - 个人博客搭建
@@ -52,7 +52,7 @@ hexo d
 
    接下来，打开`blog`仓库的`setting`，添加`secret`，如下：
 
-   ![01](D:\我的\github\blog\source\_drafts\集成GithubAction\01.png)
+   ![01](.\集成GithubAction\01.png)
 
    此时需要为`Github`生成一对公私密钥，[参考这里](https://www.cnblogs.com/yuqiliu/p/12551258.html)，点击添加之后，`key`为`ACCESS_TOKEN`，值就是生成的私钥
 
@@ -60,7 +60,7 @@ hexo d
 
    1. 打开仓库`<username>.github.io`，打开`setting`，选择`Deploy keys`添加，`key`为`ACTIONS_DEPLOY_KEY`,值就是刚才生成的公钥，如下：
 
-      ![02](D:\我的\github\blog\source\_drafts\集成GithubAction\02.png)
+      ![02](.\集成GithubAction\02.png)
 
       注：如果是在同一个仓库的不同分支则可以使用`Github Personal Token`，因为这是在不同仓库所以只能使用公私密钥
 
@@ -68,7 +68,7 @@ hexo d
 
    最后，就是添加`GithubAction`脚本在`blog`仓库当中了，打开`blog`仓库，点击到`Action`，新建`Action`脚本
 
-   ![03](D:\我的\github\blog\source\_drafts\集成GithubAction\03.png)
+   ![03](.\集成GithubAction\03.png)
 
    脚本的内容如下所示：
 

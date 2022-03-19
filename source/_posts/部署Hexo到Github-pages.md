@@ -6,7 +6,6 @@ tags:
 - 个人博客搭建
 category:
 - 博客搭建
-typora-root-url: 部署Hexo到Github-pages
 ---
 
 完成上面的操作之后，博客系统就可以在本地进行访问了；但是如果想将博客系统放到公网，可以将 `Hexo`部署到`Github Pages`上。
@@ -34,7 +33,7 @@ typora-root-url: 部署Hexo到Github-pages
 
 登录到 [Github](https://github.com/)，创建仓库
 
-![01](D:\我的\github\blog\source\_drafts\部署Hexo到Github-pages\01.png)
+![01](.\部署Hexo到Github-pages\01.png)
 
 这个仓库必须创建为`public`的，仓库的名称就是`<username>.github.io`，`username`就是你`Github`的账号
 
@@ -42,7 +41,7 @@ typora-root-url: 部署Hexo到Github-pages
 
 现在进入`hexo`博客的根目录，打开根目录下的配置文件`_config.yml`
 
-![02](/02.png)
+![02](.\部署Hexo到Github-pages.\02.png)
 
 打开之后，滑倒文件底部，找到`deploy`属性，这一块的内容更改为：
 
@@ -55,7 +54,7 @@ deploy:
 
 更改之后的结果如下所示：
 
-![03](/03.png)
+![03](.\部署Hexo到Github-pages.\03.png)
 
 ###### 3. 发布到`GithubPages`
 
