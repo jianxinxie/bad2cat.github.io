@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>搭建个人博客(5) - 集成GithubAction | Hexo</title>
+  <meta name="description" content="这样，博客已经搭建好了，可以在本地的根目录下通过命令创建博客，如下： 1hexo new post &amp;#x27;Fisrt Blog&amp;#x27;  执行完命令之后就会在Blog&#x2F;source&#x2F;_posts下面生成一个md文档了，然后在该文档中写入想发表的内容之后保存；同样的执行命令： 123hexo cleanhexo ghexo d  然后就可以发布博客到Github了，通过之前购买的域名刷新就">
+<meta property="og:type" content="article">
+<meta property="og:title" content="搭建个人博客(5) - 集成GithubAction">
+<meta property="og:url" content="https://xinwazi.com/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E9%9B%86%E6%88%90GithubAction-e7401dd28c77/index.html">
+<meta property="og:site_name" content="bad2cat">
+<meta property="og:description" content="这样，博客已经搭建好了，可以在本地的根目录下通过命令创建博客，如下： 1hexo new post &amp;#x27;Fisrt Blog&amp;#x27;  执行完命令之后就会在Blog&#x2F;source&#x2F;_posts下面生成一个md文档了，然后在该文档中写入想发表的内容之后保存；同样的执行命令： 123hexo cleanhexo ghexo d  然后就可以发布博客到Github了，通过之前购买的域名刷新就">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xinwazi.com/.%5C%E9%9B%86%E6%88%90GithubAction%5C01.png">
+<meta property="og:image" content="https://xinwazi.com/.%5C%E9%9B%86%E6%88%90GithubAction%5C02.png">
+<meta property="og:image" content="https://xinwazi.com/.%5C%E9%9B%86%E6%88%90GithubAction%5C03.png">
+<meta property="article:published_time" content="2022-03-17T10:55:35.000Z">
+<meta property="article:modified_time" content="2022-03-30T08:37:20.863Z">
+<meta property="article:author" content="Adx">
+<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="个人博客搭建">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xinwazi.com/.%5C%E9%9B%86%E6%88%90GithubAction%5C01.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://xinwazi.com/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E9%9B%86%E6%88%90GithubAction-e7401dd28c77/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="bad2cat" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/party-big.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.1"></head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/bad2cat" target="_blank">
+          <img class="img-circle img-rotate" src="/images/labixiaoxin.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">bad2cat</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">程序员&amp;心理学&amp;认知科学</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Xi&#39;an, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/bad2cat" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%91%E7%BB%9C/">网络</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/" rel="tag">DNS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/design-pattern/" rel="tag">design pattern</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" rel="tag">个人博客搭建</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="tag">原型模式</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90/" rel="tag">域名解析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a><span class="archive-list-count">7</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+              </p>
+              <p class="item-title">
+                <a href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F-9291bb2ccc7f/" class="title">设计模式-工厂模式</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-04-06T05:21:05.000Z" itemprop="datePublished">2022-04-06</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+              </p>
+              <p class="item-title">
+                <a href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F-0b54b6ca657c/" class="title">设计模式 — 原型模式</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-31T10:35:53.000Z" itemprop="datePublished">2022-03-31</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建</a>
+              </p>
+              <p class="item-title">
+                <a href="/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E9%9B%86%E6%88%90GithubAction-e7401dd28c77/" class="title">搭建个人博客(5) - 集成GithubAction</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-17T10:55:35.000Z" itemprop="datePublished">2022-03-17</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建</a>
+              </p>
+              <p class="item-title">
+                <a href="/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90-c101a3028bc7/" class="title">搭建个人博客（4）- 域名解析</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-17T10:35:53.000Z" itemprop="datePublished">2022-03-17</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建</a>
+              </p>
+              <p class="item-title">
+                <a href="/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E6%9B%B4%E6%8D%A2%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A2%98-41b8ba561387/" class="title">搭建个人博客(3) - 更换博客主题</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-17T10:33:50.000Z" itemprop="datePublished">2022-03-17</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-集成GithubAction" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      搭建个人博客(5) - 集成GithubAction
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E9%9B%86%E6%88%90GithubAction-e7401dd28c77/" class="article-date">
+	  <time datetime="2022-03-17T10:55:35.000Z" itemprop="datePublished">2022-03-17</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/hexo/" rel="tag">hexo</a>, <a class="article-tag-link-link" href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" rel="tag">个人博客搭建</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E9%9B%86%E6%88%90GithubAction-e7401dd28c77/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 949(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 3(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>这样，博客已经搭建好了，可以在本地的根目录下通过命令创建博客，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new post &#x27;Fisrt Blog&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>执行完命令之后就会在<code>Blog/source/_posts</code>下面生成一个<code>md</code>文档了，然后在该文档中写入想发表的内容之后保存；同样的执行命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+
+<p>然后就可以发布博客到<code>Github</code>了，通过之前购买的域名刷新就可以看到发表的博客了；如果每次都这样写博客会很难受，并且如果更换了电脑，需要重新再打造之前的环境了。那如何解决这个问题呢？</p>
+<span id="more"></span>
+
+<h4 id="Hexo-持续集成GithubAction"><a href="#Hexo-持续集成GithubAction" class="headerlink" title="Hexo 持续集成GithubAction"></a>Hexo 持续集成<code>GithubAction</code></h4><p>为了能够在各个地方都很容易的发表博客，那就需要实现<code>Hexo</code>持续集成；现在有两种集成的方式：</p>
+<h5 id="持续集成-Travis-CI"><a href="#持续集成-Travis-CI" class="headerlink" title="持续集成 Travis CI"></a>持续集成 <code>Travis CI</code></h5><p>这种方式可以参考，Hexo <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/github-pages">官方文档</a></p>
+<h5 id="持续集成-Github-Action"><a href="#持续集成-Github-Action" class="headerlink" title="持续集成 Github Action"></a>持续集成 <code>Github Action</code></h5><p>说明：Github Action 是<code>Github</code> 的一种执行任务的脚本，将<code>hexo</code>持续集成<code>Gihub Action</code>之后，需要将本地的博客系统<code>push</code>到<code>Github</code>的一个仓库中（也可以是仓库<code>&lt;username&gt;.github.io</code>的一个分支）；之后每次写博客时，只需要将这个博客系统拉到本地，写完之后<code>push</code>上去即可，脚本<code>Github Actions</code>就会自动发布博客的更新</p>
+<p>下面就介绍使用<code>Github Action</code>持续集成的例子</p>
+<ol>
+<li><h6 id="添加仓库"><a href="#添加仓库" class="headerlink" title="添加仓库"></a>添加仓库</h6><p>本文选择将博客系统推送的一个新的分支，所以需要创建一个新的仓库，可以将这个仓库设置为<code>private</code>，因为没必要让别人看到博客的源码，新建的仓库为<code>blog</code></p>
+</li>
+<li><h6 id="推送源码，设置-secret"><a href="#推送源码，设置-secret" class="headerlink" title="推送源码，设置 secret"></a>推送源码，设置 secret</h6><p>在本地的跟目录下面，打开<code>git bash</code>界面，将本地的源码推送到<code>blog</code>仓库；</p>
+<p>注：在这里要注意一点，之前下载主题是，在主题那个文件夹会有一个<code>.git</code>隐藏文件，在你推送之前一定要把这个<code>.git</code>文件删除掉，否则推送上去之后主题就会失效</p>
+<p>接下来，打开<code>blog</code>仓库的<code>setting</code>，添加<code>secret</code>，如下：</p>
+<p><img src="/.%5C%E9%9B%86%E6%88%90GithubAction%5C01.png" alt="01"></p>
+<p>此时需要为<code>Github</code>生成一对公私密钥，<a target="_blank" rel="noopener" href="https://www.cnblogs.com/yuqiliu/p/12551258.html">参考这里</a>，点击添加之后，<code>key</code>为<code>ACCESS_TOKEN</code>，值就是生成的私钥</p>
+</li>
+<li><h6 id="设置-Deploy-keys"><a href="#设置-Deploy-keys" class="headerlink" title="设置 Deploy keys"></a>设置 Deploy keys</h6><ol>
+<li><p>打开仓库<code>&lt;username&gt;.github.io</code>，打开<code>setting</code>，选择<code>Deploy keys</code>添加，<code>key</code>为<code>ACTIONS_DEPLOY_KEY</code>,值就是刚才生成的公钥，如下：</p>
+<p><img src="/.%5C%E9%9B%86%E6%88%90GithubAction%5C02.png" alt="02"></p>
+<p>注：如果是在同一个仓库的不同分支则可以使用<code>Github Personal Token</code>，因为这是在不同仓库所以只能使用公私密钥</p>
+</li>
+</ol>
+</li>
+<li><h6 id="添加Github-Action脚本"><a href="#添加Github-Action脚本" class="headerlink" title="添加Github Action脚本"></a>添加<code>Github Action</code>脚本</h6><p>最后，就是添加<code>GithubAction</code>脚本在<code>blog</code>仓库当中了，打开<code>blog</code>仓库，点击到<code>Action</code>，新建<code>Action</code>脚本</p>
+<p><img src="/.%5C%E9%9B%86%E6%88%90GithubAction%5C03.png" alt="03"></p>
+<p>脚本的内容如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">name: Github Pages</span><br><span class="line">on:</span><br><span class="line">  push:</span><br><span class="line">    branches:</span><br><span class="line">      - main # main 分支 push 行为时就触发这个 action</span><br><span class="line">  pull_request:</span><br><span class="line"></span><br><span class="line">jobs:</span><br><span class="line">  build-and-deploy:</span><br><span class="line">    runs-on: ubuntu-latest</span><br><span class="line">    concurrency:</span><br><span class="line">      group: $&#123;&#123; github.workflow &#125;&#125;-$&#123;&#123; github.ref &#125;&#125;</span><br><span class="line">    steps:</span><br><span class="line">      - uses: actions/checkout@v2</span><br><span class="line">      </span><br><span class="line">      - name: Setup Node</span><br><span class="line">        uses: actions/setup-node@v2</span><br><span class="line">        with:</span><br><span class="line">          node-version: &#x27;16&#x27;</span><br><span class="line">          </span><br><span class="line">      - name: Cache dependencies</span><br><span class="line">        uses: actions/cache@v2</span><br><span class="line">        with:</span><br><span class="line">          path: ~/.npm</span><br><span class="line">          key: $&#123;&#123; runner.os &#125;&#125;-node-$&#123;&#123; hashFiles(&#x27;**/package-lock.json&#x27;) &#125;&#125;</span><br><span class="line">          restore-keys: |</span><br><span class="line">            $&#123;&#123; runner.os &#125;&#125;-node-</span><br><span class="line">      - run: npm ci</span><br><span class="line">      - run: npm run build</span><br><span class="line">      </span><br><span class="line"></span><br><span class="line">      - name: Deploy</span><br><span class="line">        uses: theme-keep/hexo-deploy-github-pages-action@master </span><br><span class="line">        env:</span><br><span class="line">          PERSONAL_TOKEN: $&#123;&#123; secrets.ACCESS_TOKEN &#125;&#125;</span><br><span class="line"></span><br><span class="line">           # The repository the action should deploy to.</span><br><span class="line">          PUBLISH_REPOSITORY: bad2cat/bad2cat.github.io //这就是push 到博客仓库</span><br><span class="line"></span><br><span class="line">          # The branch the action should deploy to.</span><br><span class="line">          BRANCH: main   //push 到那个分支</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重新部署</p>
+<p>现在到本地的博客根目录下，新建一个博客，然后直接将博客源码推送到<code>blog</code>仓库，然后就会触发这个脚本了，这个脚本的作用就是把博客的内容部署到<code>&lt;username&gt;.github.io</code>仓库下面，等一会刷新页面就可以看到部署的结果了</p>
+</li>
+</ol>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://xinwazi.com/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E9%9B%86%E6%88%90GithubAction-e7401dd28c77/" title="搭建个人博客(5) - 集成GithubAction" target="_blank" rel="external">https://xinwazi.com/博客搭建/集成GithubAction-e7401dd28c77/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/bad2cat" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/labixiaoxin.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/bad2cat" target="_blank"><span class="text-dark">bad2cat</span><small class="ml-1x">程序员&amp;心理学&amp;认知科学</small></a></h3>
+        <div>正在探索一条自我发展的可持续道路.</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="lv-container" data-id="city" data-uid="">
+        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+      </div>    
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F-0b54b6ca657c/" title="设计模式 — 原型模式"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90-c101a3028bc7/" title="搭建个人博客（4）- 域名解析"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/bad2cat" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        &copy; 2022 Adx
+        
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+<script defer type="text/javascript">
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+
+    if (typeof LivereTower === 'function') { return; }
+
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+
+
+
+
+
+
+
+</body>
+</html>
