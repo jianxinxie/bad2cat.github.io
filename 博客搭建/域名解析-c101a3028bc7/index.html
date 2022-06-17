@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>搭建个人博客（4）- 域名解析 | Hexo</title>
+  <meta name="description" content="在前面的过程中，已经成功的部署了博客，并且更换了博客的主题；接下来，就是更换博客的域名；之前部署完成之后域名是这样的https:&#x2F;&#x2F;&lt;username&gt;.github.io，这个域名收到Github的限制，所以更换一个自定义的域名">
+<meta property="og:type" content="article">
+<meta property="og:title" content="搭建个人博客（4）- 域名解析">
+<meta property="og:url" content="https://xinwazi.com/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90-c101a3028bc7/index.html">
+<meta property="og:site_name" content="bad2cat">
+<meta property="og:description" content="在前面的过程中，已经成功的部署了博客，并且更换了博客的主题；接下来，就是更换博客的域名；之前部署完成之后域名是这样的https:&#x2F;&#x2F;&lt;username&gt;.github.io，这个域名收到Github的限制，所以更换一个自定义的域名">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xinwazi.com/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90-c101a3028bc7/06.png">
+<meta property="og:image" content="https://xinwazi.com/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90-c101a3028bc7/07.png">
+<meta property="og:image" content="https://xinwazi.com/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90-c101a3028bc7/08.png">
+<meta property="og:image" content="https://xinwazi.com/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90-c101a3028bc7/13.png">
+<meta property="og:image" content="https://xinwazi.com/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90-c101a3028bc7/10.png">
+<meta property="og:image" content="https://xinwazi.com/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90-c101a3028bc7/11.png">
+<meta property="og:image" content="https://xinwazi.com/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90-c101a3028bc7/12.png">
+<meta property="article:published_time" content="2022-03-17T10:35:53.000Z">
+<meta property="article:modified_time" content="2022-06-17T07:48:55.129Z">
+<meta property="article:author" content="Adx">
+<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="个人博客搭建">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xinwazi.com/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90-c101a3028bc7/06.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://xinwazi.com/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90-c101a3028bc7/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="bad2cat" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/party-big.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.1"></head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/bad2cat" target="_blank">
+          <img class="img-circle img-rotate" src="/images/labixiaoxin.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">bad2cat</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">程序员&amp;心理学&amp;认知科学</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Xi&#39;an, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/bad2cat" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Golang/">Golang</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Golang-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">Golang 基础知识</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/golang/">golang</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%91%E7%BB%9C/">网络</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a><span class="category-list-count">10</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/" rel="tag">DNS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go-%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" rel="tag">Go 依赖管理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Golang-%E5%9F%BA%E7%A1%80/" rel="tag">Golang 基础</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Golang-%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0/" rel="tag">Golang 版本更新</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Golang-%E7%A8%8B%E5%BA%8F%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%BA%E5%BA%8F/" rel="tag">Golang 程序初始化顺序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/design-pattern/" rel="tag">design pattern</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/error/" rel="tag">error</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo-%E5%8D%9A%E5%AE%A2/" rel="tag">hexo 博客</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" rel="tag">个人博客搭建</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" rel="tag">代理模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" rel="tag">单例模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2%E4%B8%AD%E5%9B%BE%E7%89%87%E4%B8%8D%E6%98%BE%E7%A4%BA%E7%9A%84%E9%97%AE%E9%A2%98/" rel="tag">博客中图片不显示的问题</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="tag">原型模式</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90/" rel="tag">域名解析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/" rel="tag">外观模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8C%89%E5%B9%B4%E6%9C%88%E7%AE%A1%E7%90%86%E5%8D%9A%E5%AE%A2/" rel="tag">按年月管理博客</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/" rel="tag">桥接模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%88%90%E5%99%A8%E6%A8%A1%E5%BC%8F/" rel="tag">生成器模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/" rel="tag">组合模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="tag">结构型模式</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F/" rel="tag">装饰模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/" rel="tag">适配器模式</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">五月 2022</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a><span class="archive-list-count">7</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+              </p>
+              <p class="item-title">
+                <a href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F-74f5876a802b/" class="title">设计模式-代理模式</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-06-17T07:40:52.000Z" itemprop="datePublished">2022-06-17</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+              </p>
+              <p class="item-title">
+                <a href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F-1fc904650307/" class="title">设计模式-外观模式</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-05-23T01:12:13.000Z" itemprop="datePublished">2022-05-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+              </p>
+              <p class="item-title">
+                <a href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F-b64439743afc/" class="title">设计模式-组合模式</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-05-09T01:12:13.000Z" itemprop="datePublished">2022-05-09</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+              </p>
+              <p class="item-title">
+                <a href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F-4159c54d2c06/" class="title">设计模式-装饰模式</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-05-09T01:12:13.000Z" itemprop="datePublished">2022-05-09</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Golang-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">Golang 基础知识</a>
+              </p>
+              <p class="item-title">
+                <a href="/Golang-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/Go%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86-a6e27b527321/" class="title">Go依赖管理</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-05-05T09:56:40.000Z" itemprop="datePublished">2022-05-05</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-域名解析" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      搭建个人博客（4）- 域名解析
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90-c101a3028bc7/" class="article-date">
+	  <time datetime="2022-03-17T10:35:53.000Z" itemprop="datePublished">2022-03-17</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/hexo/" rel="tag">hexo</a>, <a class="article-tag-link-link" href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" rel="tag">个人博客搭建</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90-c101a3028bc7/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 571(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>在前面的过程中，已经成功的部署了博客，并且更换了博客的主题；接下来，就是更换博客的域名；之前部署完成之后域名是这样的<code>https://&lt;username&gt;.github.io</code>，这个域名收到<code>Github</code>的限制，所以更换一个自定义的域名</p>
+<span id="more"></span>
+
+<h5 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h5><h5 id="1-购买域名"><a href="#1-购买域名" class="headerlink" title="1. 购买域名"></a>1. 购买域名</h5><p>如果已经有闲置的域名就不需要在购买了；找到阿里云或者腾讯云的官网（在这使用的是阿里云的官网），<a target="_blank" rel="noopener" href="https://wanwang.aliyun.com/">登入阿里云</a>，找到域名注册</p>
+<img src="/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90-c101a3028bc7/06.png" class="" title="域名解析">
+
+<p>进入之后，输入一个域名，查看是否已经被注册了；（.com的域名有点贵，所以选了一个.com.cn的域名），首年是29，续费是每年39；当然也可以买好几年的</p>
+<img src="/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90-c101a3028bc7/07.png" class="" title="域名解析">
+
+<p>然后加入域名清单，到域名清单进行购买；跳转之后到了如下的下面，选择所有者类型为个人，然后点击创建信息模板，如果之前有则就不用再创建了；现在购买域名都需要实名认证，不过这个认证时间很快，差不多半小时就好了；然后点击购买就好了</p>
+<img src="/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90-c101a3028bc7/08.png" class="" title="域名解析">
+
+<h5 id="2-域名解析"><a href="#2-域名解析" class="headerlink" title="2. 域名解析"></a>2. 域名解析</h5><p>买完域名之后，进入阿里云控制台；然后在你的域名下面添加两条记录</p>
+<img src="/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90-c101a3028bc7/13.png" class="" title="域名解析">
+
+<p>这有两种记录类型：</p>
+<ul>
+<li>A：表示解析到一个 IP 地址，这个 IP 地址可以通过<code>ping </code><username>.github.io&#96;获取到</li>
+<li>CNAME：表示将购买的这个域名解析到部署博客的那个<code>&lt;username&gt;.github.io</code>这个域名，这是为了防止<code>&lt;username&gt;.github.io</code> <code>的IP</code>变动</li>
+</ul>
+<ol start="3">
+<li><h5 id="添加-CNAME-文件"><a href="#添加-CNAME-文件" class="headerlink" title="添加 CNAME 文件"></a>添加 CNAME 文件</h5><p>打开本地博客的根目录，在<code>source</code>目录下面，添加<code>CNAME</code>文件（不带任何后缀），打开该文件将刚才创建的购买的域名写入</p>
+<img src="/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90-c101a3028bc7/10.png" class="" title="域名解析">
+</li>
+<li><p>执行命令将博客部署到<code>github</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在 Github 配置CNAME</p>
+<p>打开<code>github</code>仓库<code>&lt;username&gt;.github.io</code>，可以看到在根目录下有一个<code>CNAME</code>文件；</p>
+<img src="/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90-c101a3028bc7/11.png" class="" title="域名解析">
+
+<p>接下来，在当前项目的<code>Setting</code>中打开<code>Pages</code>页面，然后看域名是否保存，如果没有保存，点击保存即可</p>
+<img src="/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90-c101a3028bc7/12.png" class="" title="域名解析">
+
+<p>这样就可以通过自定义的域名来访问部署的博客了</p>
+</li>
+</ol>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://xinwazi.com/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90-c101a3028bc7/" title="搭建个人博客（4）- 域名解析" target="_blank" rel="external">https://xinwazi.com/博客搭建/域名解析-c101a3028bc7/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/bad2cat" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/labixiaoxin.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/bad2cat" target="_blank"><span class="text-dark">bad2cat</span><small class="ml-1x">程序员&amp;心理学&amp;认知科学</small></a></h3>
+        <div>正在探索一条自我发展的可持续道路.</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="lv-container" data-id="city" data-uid="">
+        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+      </div>    
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E9%9B%86%E6%88%90GithubAction-e7401dd28c77/" title="搭建个人博客(5) - 集成GithubAction"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E6%9B%B4%E6%8D%A2%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A2%98-41b8ba561387/" title="搭建个人博客(3) - 更换博客主题"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/bad2cat" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        &copy; 2022 Adx
+        
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+<script defer type="text/javascript">
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+
+    if (typeof LivereTower === 'function') { return; }
+
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+
+
+
+
+
+
+
+</body>
+</html>

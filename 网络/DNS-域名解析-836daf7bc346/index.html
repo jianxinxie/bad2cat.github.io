@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>DNS 域名解析--详解 | Hexo</title>
+  <meta name="description" content="因为网络中数据的传输是通过 TCP&#x2F;IP协议来完成的，在该协议中传输需要知道对端的 IP地址，然后通过 IP地址完成数据的传输。 那当用户在浏览器中输入域名时，这个域名是如何被转换成 IP地址来完成数据传输的呢？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DNS 域名解析--详解">
+<meta property="og:url" content="https://xinwazi.com/%E7%BD%91%E7%BB%9C/DNS-%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90-836daf7bc346/index.html">
+<meta property="og:site_name" content="bad2cat">
+<meta property="og:description" content="因为网络中数据的传输是通过 TCP&#x2F;IP协议来完成的，在该协议中传输需要知道对端的 IP地址，然后通过 IP地址完成数据的传输。 那当用户在浏览器中输入域名时，这个域名是如何被转换成 IP地址来完成数据传输的呢？">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-03-13T12:08:56.000Z">
+<meta property="article:modified_time" content="2022-06-17T07:48:55.129Z">
+<meta property="article:author" content="Adx">
+<meta property="article:tag" content="DNS">
+<meta property="article:tag" content="域名解析">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://xinwazi.com/%E7%BD%91%E7%BB%9C/DNS-%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90-836daf7bc346/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="bad2cat" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/party-big.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.1"></head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/bad2cat" target="_blank">
+          <img class="img-circle img-rotate" src="/images/labixiaoxin.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">bad2cat</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">程序员&amp;心理学&amp;认知科学</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Xi&#39;an, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/bad2cat" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Golang/">Golang</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Golang-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">Golang 基础知识</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/golang/">golang</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%91%E7%BB%9C/">网络</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a><span class="category-list-count">10</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/" rel="tag">DNS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go-%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" rel="tag">Go 依赖管理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Golang-%E5%9F%BA%E7%A1%80/" rel="tag">Golang 基础</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Golang-%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0/" rel="tag">Golang 版本更新</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Golang-%E7%A8%8B%E5%BA%8F%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%BA%E5%BA%8F/" rel="tag">Golang 程序初始化顺序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/design-pattern/" rel="tag">design pattern</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/error/" rel="tag">error</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo-%E5%8D%9A%E5%AE%A2/" rel="tag">hexo 博客</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" rel="tag">个人博客搭建</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" rel="tag">代理模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" rel="tag">单例模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2%E4%B8%AD%E5%9B%BE%E7%89%87%E4%B8%8D%E6%98%BE%E7%A4%BA%E7%9A%84%E9%97%AE%E9%A2%98/" rel="tag">博客中图片不显示的问题</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="tag">原型模式</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90/" rel="tag">域名解析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/" rel="tag">外观模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8C%89%E5%B9%B4%E6%9C%88%E7%AE%A1%E7%90%86%E5%8D%9A%E5%AE%A2/" rel="tag">按年月管理博客</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/" rel="tag">桥接模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%88%90%E5%99%A8%E6%A8%A1%E5%BC%8F/" rel="tag">生成器模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/" rel="tag">组合模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="tag">结构型模式</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F/" rel="tag">装饰模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/" rel="tag">适配器模式</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">五月 2022</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a><span class="archive-list-count">7</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+              </p>
+              <p class="item-title">
+                <a href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F-74f5876a802b/" class="title">设计模式-代理模式</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-06-17T07:40:52.000Z" itemprop="datePublished">2022-06-17</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+              </p>
+              <p class="item-title">
+                <a href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F-1fc904650307/" class="title">设计模式-外观模式</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-05-23T01:12:13.000Z" itemprop="datePublished">2022-05-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+              </p>
+              <p class="item-title">
+                <a href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F-b64439743afc/" class="title">设计模式-组合模式</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-05-09T01:12:13.000Z" itemprop="datePublished">2022-05-09</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+              </p>
+              <p class="item-title">
+                <a href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F-4159c54d2c06/" class="title">设计模式-装饰模式</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-05-09T01:12:13.000Z" itemprop="datePublished">2022-05-09</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Golang-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">Golang 基础知识</a>
+              </p>
+              <p class="item-title">
+                <a href="/Golang-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/Go%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86-a6e27b527321/" class="title">Go依赖管理</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-05-05T09:56:40.000Z" itemprop="datePublished">2022-05-05</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-DNS-域名解析" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      DNS 域名解析--详解
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/%E7%BD%91%E7%BB%9C/DNS-%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90-836daf7bc346/" class="article-date">
+	  <time datetime="2022-03-13T12:08:56.000Z" itemprop="datePublished">2022-03-13</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E7%BD%91%E7%BB%9C/">网络</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/DNS/" rel="tag">DNS</a>, <a class="article-tag-link-link" href="/tags/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90/" rel="tag">域名解析</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/%E7%BD%91%E7%BB%9C/DNS-%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90-836daf7bc346/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 6(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>因为网络中数据的传输是通过 <code>TCP/IP</code>协议来完成的，在该协议中传输需要知道对端的 <code>IP</code>地址，然后通过 <code>IP</code>地址完成数据的传输。</p>
+<p>那当用户在浏览器中输入域名时，这个域名是如何被转换成 <code>IP</code>地址来完成数据传输的呢？</p>
+<span id="more"></span>
+
+<p>这就是通过域名解析来完成的，域名解析这个词有点抽象，但是换个词可能就比较好理解了，比如：<code>IP</code>登记，域名指向等</p>
+<p>就 <code>IP</code> 登记而言，这个词就表明存在这么一个登记处，如果你想你的网站被别人能够访问到，就需要到这个登记处进行登记，在你登记的时候域名就相当于你的名字，<code>IP</code>就相当于你的住址；这样其他用户就可以通过域名来访问你的网站了，不再需要记住那些难记的 <code>IP</code>地址了</p>
+<p>上面所说的<code> IP</code> 登记处就是<code> DNS</code> 服务器了，每次当你在浏览器输入一个域名时，都会向<code> DNS</code> 请求这个域名对应的<code>IP</code>地址，找到之后再通过<code> IP</code> 完成具体的访问操作</p>
+<h5 id="是谁帮你完成域名解析的呢"><a href="#是谁帮你完成域名解析的呢" class="headerlink" title="是谁帮你完成域名解析的呢"></a>是谁帮你完成域名解析的呢</h5><p>因为浏览器本身不具备将消息发送到网络中的功能，所以这一步就是委托操作系统来完成的</p>
+<p>操作系统在接收到请求之后，如果是看到是<code> IP</code> 则直接发送到下一层了；如果是域名，则就把域名发给<code>DNS</code>客户端，然后由 <code>DNS</code> 客户端去连接你网络配置的 <code>DNS</code> 服务器，连接之后请求返回该域名对应的<code> IP</code>，获取到<code> IP</code> 之后再交给操作系统，然后继续完成之后的网络请求操作</p>
+<h5 id="如果本机配置的-DNS-服务器没有找到该域名对应的-IP-怎么办呢"><a href="#如果本机配置的-DNS-服务器没有找到该域名对应的-IP-怎么办呢" class="headerlink" title="如果本机配置的 DNS 服务器没有找到该域名对应的 IP 怎么办呢"></a>如果本机配置的 DNS 服务器没有找到该域名对应的 IP 怎么办呢</h5><p>每个联网的终端，都会配置一个 <code>DNS</code>服务器，即便是你没有主动的配置，则每次上网时也会由网关自动分配（这种由网关分配的机制就是 <code>DHCP</code>）</p>
+<p>当你在浏览器输入域名之后，OS就会到这个 <code>DNS</code> 服务器上去请求域名对应的<code>IP</code> 地址，如果请求到，则继续完成之前的请求；如果没有请求到，则就会进行分级查询了</p>
+<h5 id="域名的层级"><a href="#域名的层级" class="headerlink" title="域名的层级"></a>域名的层级</h5><p>在了解域名的分级查询之前，先看一下域名的层级，因为就是通过域名的层级进行分级查询的；</p>
+<p>下面是百度的域名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">www.baidu.com.</span><br></pre></td></tr></table></figure>
+
+<p>通过域名解析工具，可以看到其实百度官网域名的后面会带一个<code>.</code>,这是因为所有的域名的尾部都会有一个根域名，完整的百度的域名应该是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">www.baidu.com.root</span><br></pre></td></tr></table></figure>
+
+<p>因为根域名<code>root</code>对所有的域名都一样的，所以平时都会省略点，就变成了<code>https://www.baidu.com.</code></p>
+<p>根域名的下一级域名叫做”顶级域名”（top-level domain，缩写 TLD），比如像<code>.com,.net</code>这些；</p>
+<p>再下一级的域名叫做二级域名（second-level domain，缩写 SLD），如：<code>https://www.baidu.com.</code>中的<code>.baidu</code>，这一级的域名是用户可以注册到的；</p>
+<p>再下一级的域名就是三级域名也是主机名，如：<code>www</code>，这是用户在自己的域里为服务器配置的名称，是用户可以任意分配的</p>
+<h5 id="分级查询"><a href="#分级查询" class="headerlink" title="分级查询"></a>分级查询</h5><p>所谓的分级查询就是当你在你配置的 DNS 服务器中找不到域名对应的 IP 之后，由当前的 DNS 服务器向根域名服务器发起的请求</p>
+<p>首先说明一点，每一级域名都有自己的 <code>NS（Name Server）</code> 记录（记录域名服务器的记录，就是指定那些域名该有哪个 DNS 服务器来解析）</p>
+<p>分级查询是从根域名开始，依次查找每一级域名的 NS 记录，找到查到最终的 IP 地址为止，具体查找过程如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 从 根域名服务器 找到顶级域名服务器的 NS 记录和 IP 地址</span><br><span class="line">2. 从 顶级域名服务器 找到二级域名服务器的 NS 记录和 IP 地址</span><br><span class="line">3. 从 二级域名服务器 找到 三级域名（主机名）的 IP 地址</span><br></pre></td></tr></table></figure>
+
+<p>那在分级查询到第一步中是如何知道根域名服务器的地址的呢</p>
+<p>这是因为根域名服务器的 NS 记录和 IP 地址一般不会变，所以通常是内置在 DNS 服务器当中的</p>
+<h4 id="DNS-缓存"><a href="#DNS-缓存" class="headerlink" title="DNS 缓存"></a>DNS 缓存</h4><p>如果每次都需要这么解析一遍那么访问一个网站就会变的很慢了，同时也会对根域名服务器造成压力</p>
+<p>因此通常就会对 DNS 解析的记录进行缓存，通常有两种缓存的方式：</p>
+<h6 id="浏览器缓存"><a href="#浏览器缓存" class="headerlink" title="浏览器缓存"></a>浏览器缓存</h6><p>浏览器缓存就是每次会对访问过的域名对应的 IP 缓存起来，当然这个缓存的时间也是根据不同的浏览器的厂商而定的；谷歌的一般是缓存一分钟，也可以在谷歌浏览器中输入：<code>chrome://net-internals/#dns</code>来清除缓存</p>
+<p>OS缓存</p>
+<p>另外一种就是操作系统对于 DNS 的缓存，每次 DNS Client 请求得到的解析记录都会有一个 TTL 值，这个就是 DNS 服务器提供的 DNS 解析结果的最长存活时间，OS 缓存的 DNS 就会参考这个时间，但是不会完全的等于这个时间；通过命令<code>ipconfig/displaydns</code>就可以查看到本机的 DNS 缓存；也可以使用命令<code>ipconfig/flushdns</code>来清除这些缓存</p>
+<h5 id="DNS-劫持"><a href="#DNS-劫持" class="headerlink" title="DNS 劫持"></a>DNS 劫持</h5><p>上面介绍了 DNS 域名解析的原理，现在又有了一个新的问题：什么是 DNS 劫持？</p>
+<p>正常情况下我们在浏览器输入请求后，OS 都会先到本机的 <code>hosts</code>文件查看是否有域名对应的 IP ，如果有则直接通过这个 IP 进行访问就可以了，如果没有，则就会到网络配置的 DNS 服务器上去获取当前域名对应的 IP 地址</p>
+<p>但是，如果现在有一个木马程序，入侵你的电脑之后更改了你的 <code>hosts</code>文件，将你访问的百度的域名对应到一个广告网站或者是其他的恶意网站，此时你再访问<code>www.baidu.com</code>的时候出现的就不会是百度的首页了，而是修改之后的恶意网站了，这就是本地 DNS 劫持</p>
+<p>本地 DNS 劫持就是因为病毒的入侵，所以你要安装杀毒软件，经常扫描；当然还需要开启防火墙，这样就可以防止病毒的入侵了</p>
+<p>除了本地的 DNS 劫持外，还有就是路由器的 DNS 劫持，现在市场上的路由器的质量层级不齐，并且很多的用户买了路由器之后使用的还是默认的密码，所以很容易遭到攻击；</p>
+<p>攻击获得管理权限之后，篡改路由器上设置的 DNS 服务器的地址，使其指向恶意的 DNS 服务器，这样当你发送请求的时候就会给你返回恶意网站的 IP地址；所以为了避免这种情况需要加强对路由器账号密码的管理，防止被恶意用户获取到路由器权限</p>
+<p>第三种劫持就是攻击权威的 DNS 服务器，导致 DNS 服务器停止服务，还可以使用一些手段感染 DNS 缓存，给用户返回恶意的 IP 地址</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://xinwazi.com/%E7%BD%91%E7%BB%9C/DNS-%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90-836daf7bc346/" title="DNS 域名解析--详解" target="_blank" rel="external">https://xinwazi.com/网络/DNS-域名解析-836daf7bc346/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/bad2cat" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/labixiaoxin.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/bad2cat" target="_blank"><span class="text-dark">bad2cat</span><small class="ml-1x">程序员&amp;心理学&amp;认知科学</small></a></h3>
+        <div>正在探索一条自我发展的可持续道路.</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="lv-container" data-id="city" data-uid="">
+        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+      </div>    
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E4%BD%BF%E7%94%A8hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BAblog-2d77129f8c92/" title="搭建个人博客（1）- 初始化博客"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/bad2cat" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        &copy; 2022 Adx
+        
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+<script defer type="text/javascript">
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+
+    if (typeof LivereTower === 'function') { return; }
+
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+
+
+
+
+
+
+
+</body>
+</html>

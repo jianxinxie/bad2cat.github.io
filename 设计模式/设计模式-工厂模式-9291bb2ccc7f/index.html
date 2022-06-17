@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>设计模式-工厂模式 | Hexo</title>
+  <meta name="description" content="工厂模式是一种创建型模式，其在父类提供了一个创建对象的方法，允许子类来决定实例化对象的类型；下面通过一个具体的问题进行说明；">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式-工厂模式">
+<meta property="og:url" content="https://xinwazi.com/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F-9291bb2ccc7f/index.html">
+<meta property="og:site_name" content="bad2cat">
+<meta property="og:description" content="工厂模式是一种创建型模式，其在父类提供了一个创建对象的方法，允许子类来决定实例化对象的类型；下面通过一个具体的问题进行说明；">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xinwazi.com/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F-9291bb2ccc7f/factory_simple.png">
+<meta property="og:image" content="https://xinwazi.com/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F-9291bb2ccc7f/fac_complex.png">
+<meta property="article:published_time" content="2022-04-06T05:21:05.000Z">
+<meta property="article:modified_time" content="2022-06-17T07:48:55.133Z">
+<meta property="article:author" content="Adx">
+<meta property="article:tag" content="设计模式">
+<meta property="article:tag" content="design pattern">
+<meta property="article:tag" content="原型模式">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xinwazi.com/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F-9291bb2ccc7f/factory_simple.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://xinwazi.com/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F-9291bb2ccc7f/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="bad2cat" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/party-big.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.1"></head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/bad2cat" target="_blank">
+          <img class="img-circle img-rotate" src="/images/labixiaoxin.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">bad2cat</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">程序员&amp;心理学&amp;认知科学</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Xi&#39;an, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/bad2cat" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Golang/">Golang</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Golang-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">Golang 基础知识</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/golang/">golang</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%91%E7%BB%9C/">网络</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a><span class="category-list-count">10</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/" rel="tag">DNS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go-%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" rel="tag">Go 依赖管理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Golang-%E5%9F%BA%E7%A1%80/" rel="tag">Golang 基础</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Golang-%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0/" rel="tag">Golang 版本更新</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Golang-%E7%A8%8B%E5%BA%8F%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%BA%E5%BA%8F/" rel="tag">Golang 程序初始化顺序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/design-pattern/" rel="tag">design pattern</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/error/" rel="tag">error</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo-%E5%8D%9A%E5%AE%A2/" rel="tag">hexo 博客</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" rel="tag">个人博客搭建</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" rel="tag">代理模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" rel="tag">单例模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2%E4%B8%AD%E5%9B%BE%E7%89%87%E4%B8%8D%E6%98%BE%E7%A4%BA%E7%9A%84%E9%97%AE%E9%A2%98/" rel="tag">博客中图片不显示的问题</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="tag">原型模式</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90/" rel="tag">域名解析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/" rel="tag">外观模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8C%89%E5%B9%B4%E6%9C%88%E7%AE%A1%E7%90%86%E5%8D%9A%E5%AE%A2/" rel="tag">按年月管理博客</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/" rel="tag">桥接模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%88%90%E5%99%A8%E6%A8%A1%E5%BC%8F/" rel="tag">生成器模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/" rel="tag">组合模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="tag">结构型模式</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F/" rel="tag">装饰模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/" rel="tag">适配器模式</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">五月 2022</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a><span class="archive-list-count">7</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+              </p>
+              <p class="item-title">
+                <a href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F-74f5876a802b/" class="title">设计模式-代理模式</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-06-17T07:40:52.000Z" itemprop="datePublished">2022-06-17</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+              </p>
+              <p class="item-title">
+                <a href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F-1fc904650307/" class="title">设计模式-外观模式</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-05-23T01:12:13.000Z" itemprop="datePublished">2022-05-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+              </p>
+              <p class="item-title">
+                <a href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F-b64439743afc/" class="title">设计模式-组合模式</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-05-09T01:12:13.000Z" itemprop="datePublished">2022-05-09</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+              </p>
+              <p class="item-title">
+                <a href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F-4159c54d2c06/" class="title">设计模式-装饰模式</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-05-09T01:12:13.000Z" itemprop="datePublished">2022-05-09</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Golang-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">Golang 基础知识</a>
+              </p>
+              <p class="item-title">
+                <a href="/Golang-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/Go%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86-a6e27b527321/" class="title">Go依赖管理</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-05-05T09:56:40.000Z" itemprop="datePublished">2022-05-05</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-设计模式-工厂模式" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      设计模式-工厂模式
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F-9291bb2ccc7f/" class="article-date">
+	  <time datetime="2022-04-06T05:21:05.000Z" itemprop="datePublished">2022-04-06</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/design-pattern/" rel="tag">design pattern</a>, <a class="article-tag-link-link" href="/tags/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="tag">原型模式</a>, <a class="article-tag-link-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F-9291bb2ccc7f/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.4k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 5(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>工厂模式是一种创建型模式，其在父类提供了一个创建对象的方法，允许子类来决定实例化对象的类型；下面通过一个具体的问题进行说明；</p>
+<span id="more"></span>
+
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>在本地有一个快递公司，使用卡车进行货物的运输; 运输的方式就是实例化<code>Truck</code>类，然后调用 <code>Truck</code>类的<code>Delivery</code>方法就可以完成运输了；</p>
+<p>现在公司要扩张业务，需要支持航空运输和轮船运输，那如何能够优雅的应对公司业务的不断的扩张呢？</p>
+<p>要是按照之前的方式，直接添加<code>Ship</code>和<code>Air</code>类的话，就需要更改客户端代码；这样一来，客户端的代码不但变的越来越复杂，并且紧紧的与具体对象的类型耦合在了一起；</p>
+<p>如果之后业务不断的增加，会使得客户端代码越来越复杂，而且某一个类的任何一点变化，都需要更改客户端的代码，慢慢的客户端代码就会变的越来越难以维护，就会严重的影响公司的业务的扩张</p>
+<p>下面提供了两种方案，来应对快递公司的这种不断变化的业务模型。</p>
+<h3 id="简单工厂设计模式"><a href="#简单工厂设计模式" class="headerlink" title="简单工厂设计模式"></a>简单工厂设计模式</h3><p>首先需要解决的就是客户端代码和对象的类型耦合的问题；我们定义一个<code>Transport</code>接口，在接口类型中声明一个<code>Delivery</code>方法; </p>
+<p>然后让不同的运输类实现这个接口，这样对于客户端而言只需要传入具体的运输方式，就可以创建指定的运输对象了，这样客户端代码就不会和对象的具体类型耦合在一起了</p>
+<img src="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F-9291bb2ccc7f/factory_simple.png" class="" title="Factory-pattern">
+
+<p>代码示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">type TransportSimple interface &#123;</span><br><span class="line">	Delivery() string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func CreateTransport(typ string) TransportSimple &#123;</span><br><span class="line">	switch typ &#123;</span><br><span class="line">	case &quot;truck&quot;:</span><br><span class="line">		return &amp;Truck&#123;&#125;</span><br><span class="line">	case &quot;airPlane&quot;:</span><br><span class="line">		return &amp;AirPlane&#123;&#125;</span><br><span class="line">	default:</span><br><span class="line">		return nil</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Truck struct&#123;&#125;</span><br><span class="line"></span><br><span class="line">func (t *Truck) Delivery() string &#123;</span><br><span class="line">	return fmt.Sprintf(&quot;use truck delivery...&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type AirPlane struct&#123;&#125;</span><br><span class="line"></span><br><span class="line">func (a *AirPlane) Delivery() string &#123;</span><br><span class="line">	return fmt.Sprintf(&quot;use airplane delivery...&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//客户端代码</span><br><span class="line">func main() &#123;</span><br><span class="line">	t := CreateTransport(&quot;truck&quot;)</span><br><span class="line">	t.Delivery()</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>随着公司运输方式的增加，公司运输的货物也越来越多，但是也收到了不少的差评；因为很多生鲜类的货物，到了用户手里都变质了；还有货物到了快递公司也是随便的堆放；</p>
+<p>公司为了解决这些问题，又增加了分类<code>Category</code>和存储<code>Store</code>功能，分类就是在货物到公司后，对货物进行分类；存储的话就是根据分类的结果，对货物分别存储，等到有合适的路线再取出来运输</p>
+<p>但是之前的方案好像不能够很好的解决这两种功能的加入，所以公司想有没有一个更加合适的方案，既能应对运输线路的增加，又能解决业务扩张带来的这些问题呢？</p>
+<h3 id="抽象工厂设计模式"><a href="#抽象工厂设计模式" class="headerlink" title="抽象工厂设计模式"></a>抽象工厂设计模式</h3><p>简单工厂模式只能应对单一产品的变化，一旦产品种类增加之后，简单工厂模式就不能够优雅的应对了；那么此时又有了一个改进的工厂模式：抽象工厂设计模式</p>
+<p>在抽象工厂设计模式中，首先需要定义一个<code>AbstractFactory</code>接口，在这个接口中定义创建不同产品的方法；比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">type AbstractFactory interface&#123;</span><br><span class="line">    CreateProductA() ProductA</span><br><span class="line">    CreateProductB() ProductB</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后，定义不同的工厂类型，比如：<code>FactoryA</code>只生产<code>A</code>类型相关的一些列产品，而<code>FactoryB</code>只生产<code>B</code>类型相关的一系列产品</p>
+<p>之前的简单工厂模式只能生产出单一功能不同类型的产品，而抽象工厂模式可以生产出多功能，并且各种不同类型的产品；</p>
+<p>这就相当于多条生产线，每条生产线生产统一类型相关的一系列产品；客户端只需要创建一个<code>AbstractFactory</code>的实例就可以对货物进行分类，存储，运输等功能了；并且如果之后有其他的功能的话，只需要添加到这个工厂类中就可以了；下面是类图示例：</p>
+<img src="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F-9291bb2ccc7f/fac_complex.png" class="" title="Factory-pattern">
+
+<p>代码示例如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">type Factory interface &#123;</span><br><span class="line">	CreateTransport() TransportSimple</span><br><span class="line">	CreateStore() Store</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type CreatorA struct&#123;&#125;</span><br><span class="line"></span><br><span class="line">func (c *CreatorA) CreateTransport() TransportSimple &#123;</span><br><span class="line">	return &amp;Truck&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (c *CreatorA) CreateStore() Store &#123;</span><br><span class="line">	return &amp;ColdStore&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type CreatorB struct&#123;&#125;</span><br><span class="line"></span><br><span class="line">func (c *CreatorB) CreateTransport() TransportSimple &#123;</span><br><span class="line">	return &amp;AirPlane&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (c *CreatorB) CreateStore() Store &#123;</span><br><span class="line">	return &amp;HotStore&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func CreateFactory(typ string) Factory &#123;</span><br><span class="line">	switch typ &#123;</span><br><span class="line">	case &quot;coldWithTruck&quot;:</span><br><span class="line">		return &amp;CreatorA&#123;&#125;</span><br><span class="line">	case &quot;hotWithAirPlane&quot;:</span><br><span class="line">		return &amp;CreatorB&#123;&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	return nil</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这样就能够应对公司业务的不断变化了; 可在 <a target="_blank" rel="noopener" href="https://github.com/bad2cat/programming-essence/tree/main/designPattern/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F">Github 中查看完整代码示例</a></p>
+<h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
+<li>你可以避免创建者和具体产品之间的紧密耦合。</li>
+<li>单一职责原则。 你可以将产品创建代码放在程序的单一位置， 从而使得代码更容易维护。</li>
+<li>开闭原则。 无需更改现有客户端代码， 你就可以在程序中引入新的产品类型。</li>
+</ul>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li>应用工厂方法模式需要引入许多新的子类， 代码可能会因此变得更复杂。 最好的情况是将该模式引入创建者类的现有层次结构中。</li>
+</ul>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://xinwazi.com/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F-9291bb2ccc7f/" title="设计模式-工厂模式" target="_blank" rel="external">https://xinwazi.com/设计模式/设计模式-工厂模式-9291bb2ccc7f/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/bad2cat" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/labixiaoxin.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/bad2cat" target="_blank"><span class="text-dark">bad2cat</span><small class="ml-1x">程序员&amp;心理学&amp;认知科学</small></a></h3>
+        <div>正在探索一条自我发展的可持续道路.</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="lv-container" data-id="city" data-uid="">
+        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+      </div>    
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/hexo-%E5%8D%9A%E5%AE%A2%E4%B8%AD%E7%9A%84%E5%9B%BE%E7%89%87%E4%B8%8D%E6%98%BE%E7%A4%BA%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88-ee172ebfb43e/" title="hexo 博客中的图片不显示的解决方案"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F-0b54b6ca657c/" title="设计模式-原型模式"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/bad2cat" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        &copy; 2022 Adx
+        
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+<script defer type="text/javascript">
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+
+    if (typeof LivereTower === 'function') { return; }
+
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+
+
+
+
+
+
+
+</body>
+</html>
